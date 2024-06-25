@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your head content here -->
+</head>
+<body>
+    <%- include ('../adminLayout/header') %>
+
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search"></div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> 
+                    <i class="material-icons md-apps"></i> 
+                </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> 
+                            <i class="material-icons md-nights_stay"></i> 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon">
+                            <i class="material-icons md-cast"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false">
+                            <i class="material-icons md-public"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#">
+                                <img src="/adminassets/imgs/theme/flag-us.png" alt="English">English
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/adminassets/imgs/theme/flag-fr.png" alt="Français">Français
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/adminassets/imgs/theme/flag-jp.png" alt="Français">日本語
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/adminassets/imgs/theme/flag-cn.png" alt="Français">中国人
+                            </a>
+                        </div>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> 
+                            <img class="img-xs rounded-circle" src="adminassets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons md-perm_identity"></i>Edit Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons md-settings"></i>Account Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons md-account_balance_wallet"></i>Wallet
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons md-receipt"></i>Billing
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons md-help_outline"></i>Help center
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout">
+                                <i class="material-icons md-exit_to_app"></i>Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Add Product</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/admin/addProduct" enctype="multipart/form-data" onsubmit="return validateForm()">
+                                <!-- General Information Section -->
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Name</label>
+                                    <input type="text" placeholder="Type product name here" class="form-control" name="name" id="product_name">
+                                    <p id="nameError" class="text-danger"></p> <!-- Placeholder for name error -->
+                                </div>
+                                <div class="mb-4">
+                                    <label for="product_description" class="form-label">Description</label>
+                                    <textarea placeholder="Type product description here" class="form-control" name="description" id="product_description" rows="4"></textarea>
+                                    <p id="descriptionError" class="text-danger"></p> <!-- Placeholder for description error -->
+                                </div>
+                            
+                                <!-- Pricing Section -->
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label for="regular_price" class="form-label">Price</label>
+                                            <input placeholder="₹" type="text" class="form-control" name="price" id="regular_price">
+                                            <p id="priceError" class="text-danger"></p> <!-- Placeholder for price error -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label for="discount_price" class="form-label">Discount Price</label>
+                                            <input placeholder="₹" type="text" class="form-control" name="discountPrice" id="discount_price">
+                                            <p id="discountPriceError" class="text-danger"></p> <!-- Placeholder for discount price error -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label for="stock_count" class="form-label">Count of Stock</label>
+                                            <input type="number" placeholder="Qty" class="form-control" name="stock" id="stock_count">
+                                            <p id="stockError" class="text-danger"></p> <!-- Placeholder for stock error -->
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Category Section -->
+                                <div class="mb-4">
+                                    <% if(category.length > 0) {
+                                        for(let i=0; i<category.length; i++) { %>
+                                    <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                        <input class="form-check-input" value="<%=category[i]._id%>" name="category" id="category_<%= i %>" type="radio">
+                                        <span class="form-check-label"> <%=category[i].name%> </span>
+                                    </label>
+                                    <%}}%>
+                                    <div id="categoryError" class="text-danger"></div> <!-- Placeholder for category error -->
+                                </div>
+                                
+                            
+                                <!-- Media Section for Images -->
+                                <div class="mb-4">
+                                    <label for="product_images" class="form-label">Images</label>
+                                    <input type="file" class="form-control" name="images" id="product_images" multiple>
+                                    <small class="form-text text-muted">You can select multiple images.</small>
+                                    <p id="imagesError" class="text-danger"></p> <!-- Placeholder for images error -->
+                                </div>
+                            
+                                <div class="mb-4">
+                                    <div id="mainError" class="text-danger"></div> <!-- Main error message placeholder -->
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div> <!-- card end// -->
+                </div>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Skog Furniture  .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="/adminassets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/adminassets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/adminassets/js/vendors/select2.min.js"></script>
+    <script src="/adminassets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/adminassets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="adminassets/js/main.js" type="text/javascript"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nameInput = document.getElementById('product_name');
+            const descriptionInput = document.getElementById('product_description');
+            const priceInput = document.getElementById('regular_price');
+            const discountPriceInput = document.getElementById('discount_price');
+            const stockInput = document.getElementById('stock_count');
+            const imagesInput = document.getElementById('product_images');
+        
+            nameInput.addEventListener('input', () => {
+                validateName();
+            });
+            descriptionInput.addEventListener('input', () => {
+                validateDescription();
+            });
+            priceInput.addEventListener('input', () => {
+                validatePrice();
+            });
+            discountPriceInput.addEventListener('input', () => {
+                validateDiscountPrice();
+            });
+            stockInput.addEventListener('input', () => {
+                validateStock();
+            });
+            imagesInput.addEventListener('change', () => {
+                validateImages();
+            });
+        });
+
+        function validateForm() {
+            let isValid = true;
+
+            isValid = validateName() && isValid;
+            isValid = validateDescription() && isValid;
+            isValid = validatePrice() && isValid;
+            isValid = validateDiscountPrice() && isValid;
+            isValid = validateStock() && isValid;
+            isValid = validateCategory() && isValid;
+            isValid = validateImages() && isValid;
+
+            return isValid;
+        }
+
+        function validateName() {
+            const name = document.getElementById('product_name').value.trim();
+            const nameError = document.getElementById('nameError');
+
+            if (name === "") {
+                nameError.textContent = "Name is required.";
+                return false;
+            } else {
+                nameError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateDescription() {
+            const description = document.getElementById('product_description').value.trim();
+            const descriptionError = document.getElementById('descriptionError');
+
+            if (description === "") {
+                descriptionError.textContent = "Description is required.";
+                return false;
+            } else {
+                descriptionError.textContent = "";
+                return true;
+            }
+        }
+
+        function validatePrice() {
+            const price = document.getElementById('regular_price').value.trim();
+            const priceError = document.getElementById('priceError');
+
+            if (price === "" || isNaN(price) || parseFloat(price) < 0) {
+                priceError.textContent = "Valid price is required.";
+                return false;
+            } else {
+                priceError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateDiscountPrice() {
+            const discountPrice = document.getElementById('discount_price').value.trim();
+            const discountPriceError = document.getElementById('discountPriceError');
+            const price = document.getElementById('regular_price').value.trim();
+
+            if (discountPrice !== "" && (isNaN(discountPrice) || parseFloat(discountPrice) < 0 || parseFloat(discountPrice) > parseFloat(price))) {
+                discountPriceError.textContent = "Valid discount price is required and must be less than the regular price.";
+                return false;
+            } else {
+                discountPriceError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateStock() {
+            const stock = document.getElementById('stock_count').value.trim();
+            const stockError = document.getElementById('stockError');
+
+            if (stock === "" || isNaN(stock) || parseInt(stock) < 0) {
+                stockError.textContent = "Valid stock count is required.";
+                return false;
+            } else {
+                stockError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateCategory() {
+            const categoryInputs = document.querySelectorAll('input[name="category"]');
+            const categoryError = document.getElementById('categoryError');
+            let isChecked = false;
+
+            categoryInputs.forEach(input => {
+                if (input.checked) {
+                    isChecked = true;
+                }
+            });
+
+            if (!isChecked) {
+                categoryError.textContent = "Category is required.";
+                return false;
+            } else {
+                categoryError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateImages() {
+            const images = document.getElementById('product_images').files;
+            const imagesError = document.getElementById('imagesError');
+
+            if (images.length === 0) {
+                imagesError.textContent = "At least one image is required.";
+                return false;
+            } else {
+                imagesError.textContent = "";
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

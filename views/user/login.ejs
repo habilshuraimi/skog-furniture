@@ -1,0 +1,182 @@
+<%- include ('../layout/header') %>
+
+    
+        <!-- search start -->
+        <div class="search-content-wrap main-search-active">
+            <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
+            <div class="search-content">
+                <p>Start typing and press Enter to search</p>
+                <form class="search-form" action="#">
+                    <input type="text" placeholder="Search">
+                    <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <!-- aside start -->
+        <div class="header-aside-active">
+            <div class="header-aside-wrap">
+                <a class="aside-close"><i class="dlicon ui-1_simple-remove"></i></a>
+                <div class="header-aside-content">
+                    <div class="mobile-menu-area">
+                        <div class="mobile-search">
+                            <form class="search-form" action="#">
+                                <input type="text" placeholder="Search entire store…">
+                                <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                            </form>
+                        </div>
+                        <div class="mobile-menu-wrap">
+
+                        </div>
+                        <div class="mobile-curr-lang-wrap">
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-language-active" href="#">Language <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown lang-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">English (US)</a></li>
+                                        <li><a href="#">English (UK)</a></li>
+                                        <li><a href="#">Spanish</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-currency-active" href="#">Currency <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown curr-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">USD</a></li>
+                                        <li><a href="#">EUR</a></li>
+                                        <li><a href="#">Real</a></li>
+                                        <li><a href="#">BDT</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-account-active" href="#">My Account <i
+                                        class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown account-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Creat Account</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-aside-menu">
+                        <nav>
+                            <ul>
+                                <li><a href="#">About Toro</a></li>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">Collection</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">New Look</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <img src="assets/images/icon-img/payments.png" alt="payment">
+                    <p>Pellentesque mollis nec orci id tincidunt. Sed mollis risus eu nisi aliquet, sit amet fermentum
+                        justo dapibus.</p>
+                    <div class="aside-contact-info">
+                        <ul>
+                            <li><i class="dlicon ui-2_time-clock"></i>Monday - Friday: 9:00 - 19:00</li>
+                            <li><i class="dlicon ui-1_email-84"></i>Info@la-studioweb.com</li>
+                            <li><i class="dlicon tech-2_rotate"></i>(+55) 254. 254. 254</li>
+                            <li><i class="dlicon ui-1_home-minimal"></i>Helios Tower 75 Tam Trinh Hoang - Ha Noi - Viet
+                                Nam</li>
+                        </ul>
+                    </div>
+                    <div class="social-icon-style mb-25">
+                        <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                        <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                        <a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+                        <a class="behance" href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                    <div class="copyright">
+                        <p>© 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-register-area pt-64 pb-100">
+            <div class="container">
+                <div class="row justify-content-center"> <!-- Added justify-content-center -->
+                    <div class="col-lg-5 col-md-8"> <!-- Adjusted column size for better centering -->
+                        <div class="login-register-wrap register-wrap p-2"
+                            style="background-color: rgba(249, 249, 247, 0.963);">
+                            <h3> <i class="fa fa-user-o "></i> Log In</h3>
+                            <div class="login-register-form">
+                                <% if(typeof error !== "undefined" && typeof error !==null){ %>
+                                    <span style="color: red;"><%= error %></span>
+                                <% }%>
+                                <form action="/login" method="post">
+                                    <div class="sin-login-register">
+                                        <label>Email address <span>*</span></label>
+                                        <div id="emailError" class="errorMessage" style="color: red;"></div>
+                                        <input type="email" name="email" required value="habilshuraimi9090@gmail.com">
+                                    </div>
+                            
+                                    <div class="sin-login-register">
+                                        <label>Password <span>*</span></label>
+                                        <div id="PasswordError" class="errorMessage" style="color: red;"></div>
+                                        <input type="password" name="password" required value="123123">
+                                    </div>
+                            
+                                    <div class="login-register-btn">
+                                        <button type="submit" onclick="return validatePassword()">log In</button>
+                                    </div>
+                                    <div>
+                                        <a href="/auth/google" class="btn btn-google btn-lg">
+                                            <i class="fab fa-google"></i> log in with Google
+                                        </a>
+                                    </div>
+                                </form>
+                                <br>
+                                <div class="link-container" style="display: flex; justify-content: space-between;">
+                                    <a href="/email">New User?</a> 
+                                    <a href="/forget">Forgot Password?</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Validation for email
+            const emailInput = document.querySelector('input[name="email"]');
+            const emailError = document.getElementById('emailError');
+
+            emailInput.addEventListener('input', function () {
+                // Regular expression for email validation
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailInput.value)) {
+                    emailError.textContent = 'Invalid email address';
+                } else {
+                    emailError.textContent = '';
+                }
+            });
+
+
+            // Validation for password
+            const passwordInput = document.querySelector('input[name="password"]');
+            const passwordError = document.getElementById('PasswordError');
+
+            passwordInput.addEventListener('input', function () {
+                // Check if password length is less than 6 characters
+                if (passwordInput.value.length < 6) {
+                    passwordError.textContent = 'Password should be at least 6 characters ';
+                } else {
+                    passwordError.textContent = '';
+                }
+            });
+
+
+        </script>
+
+
+        <%- include('../layout/footer') %>

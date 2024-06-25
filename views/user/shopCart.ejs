@@ -1,0 +1,433 @@
+<%- include('../layout/header') %>
+
+  <!-- search start -->
+  <div class="search-content-wrap main-search-active">
+    <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
+    <div class="search-content">
+      <p>Start typing and press Enter to search</p>
+      <form class="search-form" action="#">
+        <input type="text" placeholder="Search" />
+        <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+      </form>
+    </div>
+  </div>
+  <!-- mini cart start -->
+  <div class="sidebar-cart-active">
+    <div class="sidebar-cart-all">
+      <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+      <div class="cart-content">
+        <h3>Shopping Cart</h3>
+
+        <ul>
+ 
+        <% if (cartData && cartData.items && cartData.items.length> 0) {
+          %> <% for (let i=0; i < cartData.items.length; i++) { %>
+
+            
+              <li class="single-product-cart">
+                <div class="cart-img">
+                  <a href="#"><img src="/productImages/<%= cartData.items[i].productId.images[1] %>" alt="" /></a>
+                </div>
+                <div class="cart-title">
+                  <h4><a href="#"><%= cartData.items[i].productId.name %></a></h4>
+                  <span> <%= cartData.items[i].price %></span>
+                </div>
+                <div class="cart-delete">
+                  <a href="#">×</a>
+                </div>
+              </li>
+              <% } %>
+              <% } %>
+              
+            </ul>
+            <div class="cart-total">
+              <h4>Subtotal: <span>$170.00</span></h4>
+            </div>
+            <div class="cart-checkout-btn">
+              <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+              <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
+            </div>
+      </div>
+    </div>
+  </div>
+  <!-- aside start -->
+  <div class="header-aside-active">
+    <div class="header-aside-wrap">
+      <a class="aside-close"><i class="dlicon ui-1_simple-remove"></i></a>
+      <div class="header-aside-content">
+        <div class="mobile-menu-area">
+          <div class="mobile-search">
+            <form class="search-form" action="#">
+              <input type="text" placeholder="Search entire store…" />
+              <button class="button-search">
+                <i class="dlicon ui-1_zoom"></i>
+              </button>
+            </form>
+          </div>
+          <div class="mobile-menu-wrap">
+            <!-- mobile menu start -->
+            <div class="mobile-navigation">
+              <!-- mobile menu navigation start -->
+
+              <!-- mobile menu navigation end -->
+            </div>
+            <!-- mobile menu end -->
+          </div>
+          <div class="mobile-curr-lang-wrap">
+            <div class="single-mobile-curr-lang">
+              <a class="mobile-language-active" href="#">Language <i class="fa fa-angle-down"></i></a>
+              <div class="lang-curr-dropdown lang-dropdown-active">
+                <ul>
+                  <li><a href="#">English (US)</a></li>
+                  <li><a href="#">English (UK)</a></li>
+                  <li><a href="#">Spanish</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="single-mobile-curr-lang">
+              <a class="mobile-currency-active" href="#">Currency <i class="fa fa-angle-down"></i></a>
+              <div class="lang-curr-dropdown curr-dropdown-active">
+                <ul>
+                  <li><a href="#">USD</a></li>
+                  <li><a href="#">EUR</a></li>
+                  <li><a href="#">Real</a></li>
+                  <li><a href="#">BDT</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="single-mobile-curr-lang">
+              <a class="mobile-account-active" href="#">My Account <i class="fa fa-angle-down"></i></a>
+              <div class="lang-curr-dropdown account-dropdown-active">
+                <ul>
+                  <li><a href="#">Login</a></li>
+                  <li><a href="#">Creat Account</a></li>
+                  <li><a href="my-account.html">My Account</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-aside-menu">
+          <nav>
+            <ul>
+              <li><a href="#">About Toro</a></li>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Collection</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">New Look</a></li>
+            </ul>
+          </nav>
+        </div>
+        <img src="assets/images/icon-img/payments.png" alt="payment" />
+        <p>
+          Pellentesque mollis nec orci id tincidunt. Sed mollis risus eu nisi
+          aliquet, sit amet fermentum justo dapibus.
+        </p>
+        <div class="aside-contact-info">
+          <ul>
+            <li>
+              <i class="dlicon ui-2_time-clock"></i>Monday - Friday: 9:00 - 19:00
+            </li>
+            <li><i class="dlicon ui-1_email-84"></i>Info@la-studioweb.com</li>
+            <li><i class="dlicon tech-2_rotate"></i>(+55) 254. 254. 254</li>
+            <li>
+              <i class="dlicon ui-1_home-minimal"></i>Helios Tower 75 Tam Trinh
+              Hoang - Ha Noi - Viet Nam
+            </li>
+          </ul>
+        </div>
+        <div class="social-icon-style mb-25">
+          <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+          <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+          <a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+          <a class="behance" href="#"><i class="fa fa-behance"></i></a>
+        </div>
+        <div class="copyright">
+          <p>
+            © 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+    <div class="container-fluid">
+      <div class="breadcrumb-content text-center">
+        <div class="breadcrumb-title">
+          <h2>Shopping Cart</h2>
+        </div>
+        <ul>
+          <li>
+            <a href="/">Home </a>
+          </li>
+          <li><span> &gt; </span></li>
+          <li class="active">Shopping Cart</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- cart start -->
+  <div class="cart-main-area pt-90 pb-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- <form action="#"> -->
+          <div class="row">
+            <div class="col-lg-8">
+
+              <div class="table-content table-responsive cart-table-content">
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th>Product</th>
+                      <th> Price</th>
+                      <th>Quantity</th>
+                      <th style="padding-left: 0px;">total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (cartData) { %>
+                      <% if(proData.length > 0)  %>
+                      <% for (let i=0; i < proData.length; i++) { %>
+                        <tr>
+                          <td class="product-remove">
+                            <a
+                              href="/cartremove?id=<%= cartData.items[i].productId %>&size=<%= cartData.items[i].size %>"><i
+                                class="dlicon ui-1_simple-remove"></i></a>
+                          </td>
+
+                          <td class="product-img sm">
+                            <a href="/productDetails?id=<%= proData[i]._id %>">
+                              <img src="/productImages/<%= proData[i].images[1] %>" alt="pro img"
+                                style="width: 50px; height: 50px;">
+                            </a>
+                          </td>
+
+                          <td class="product-name">
+                            <a id="name" href="/productDetails?id=<%= proData[i]._id %>">
+                              <%= proData[i].name %>
+                            </a>
+                          </td>
+
+                          <td class="product-price">₹
+                            <span id="discountPrice<%=i%>" class="amount">
+                              <%= proData[i].discountPrice %>
+                            </span>
+                          </td>
+
+                          
+
+                   
+
+                          <td class="cart-quality">
+                            <button
+                              onclick="increment('<%= proData[i]._id%>','1','<%=i%>','<%= proData[i].discountPrice %>','<%=cartData.items[i].price %>')"
+                              style="width: 50px; height: 25px; border: none; color:black; ">+</button>
+
+
+
+                            <div class="detail-qty border radius  m-auto">
+
+                              <span id="quantity<%= i %>">
+                                <%= cartData.items[i].quantity %>
+                              </span>
+
+
+                            </div>
+                            <button
+                              onclick="decrement('<%= proData[i]._id%>','1','<%=i%>','<%= proData[i].discountPrice %>','<%=cartData.items[i].price %>')"
+                              style="width: 50px; height: 25px; border: none; color: black; ">-</button>
+
+                          </td>
+
+
+                          <td class="product-total" style="padding-left: 20px;">₹
+                            <span id="subtotal<%=i%>">
+                              <%=cartData.items[i].price %>
+                            </span>
+                          </td>
+                        </tr>
+                        <% } %>
+                          <% } %>
+
+                  </tbody>
+
+                </table>
+              </div>
+              <div class="cart-shiping-update-wrapper">
+                <div class="discount-code">
+                  <a href="allProducts"><button class="coupon-btn" type="submit">click here to shop more.</button></a>
+                  
+                </div>
+                <div class="cart-clear">
+                  <% if (cartData && cartData._id) { %>
+                    <a href="/clearCart?id=<%= cartData._id %>">Clear Cart</a>
+                    <% } else { %>
+                      <b style="font-family: poppins;">CART IS EMPTY</b>
+
+                      <% } %>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-4">
+              <div class="grand-total-wrap">
+
+                <h4>Cart totals</h4>
+                <div class="grand-total-content">
+                  <ul>
+                    <% if (cartData && cartData.billTotal) { %>
+                      <li>Subtotal ₹<span id="cartSub"><%= cartData.billTotal %> </span></li>
+                      <li>Total ₹<span id="total"><%= cartData.billTotal %></span> </li>
+                      <% } else { %>
+
+                        <li>Subtotal <span id="cartSub">N/A</span></li>
+                        <li>Total <span id="total">N/A</span></li>
+                        <% } %>
+
+                  </ul>
+                </div>
+                <% if (cartData && cartData.items.length > 0) { %>
+                  <div class="grand-btn" id="proceed-btn">
+                    <a href="checkout">Proceed to checkout</a>
+                  </div>
+                <% } else { %>
+                  <div class="grand-btn" id="proceed-btn">
+                    <a href onclick="showAlert()">Proceed to checkout</a>
+                  </div>
+                <% } %>
+                <script>
+                  function showAlert() {
+                    alert("Please add items to your cart before proceeding to checkout.");
+                  }
+                </script>
+
+              </div>
+            </div>
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  function increment(productId, quantity, index, price, total) {
+    const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
+    const rate = parseInt(document.getElementById("discountPrice" + index).innerHTML);
+    const sub = parseInt(document.getElementById("subtotal" + index).innerHTML);
+    const cartTotal = parseInt(document.getElementById("total").innerHTML);
+
+    $.ajax({
+        url: "/increment",
+        method: "post",
+        data: {
+            qty,
+            rate,
+            sub,
+            cartTotal,
+            productId
+        },
+        success: (response) => {
+            if (response.status === true) {
+                const newQty = qty + 1;
+                const newSubtotal = rate + sub;
+                const newCartTotal = cartTotal + rate;
+
+                document.getElementById("subtotal" + index).innerHTML = newSubtotal;
+                document.getElementById("quantity" + index).innerHTML = newQty;
+                document.getElementById("total").innerHTML = response.cartTotal;
+
+                // Also update the cart subtotal
+                document.getElementById("cartSub").innerHTML = newCartTotal;
+            } else if (response.status === "maximum") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Cart limit reached",
+                });
+            } else {
+                let error = "An error occurred";
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error,
+                });
+            }
+        }
+    });
+}
+
+
+  function decrement(productId, quantity, index, price, total) {
+    const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
+    const rate = parseInt(document.getElementById("discountPrice" + index).innerHTML);
+    const sub = parseInt(document.getElementById("subtotal" + index).innerHTML);
+    const cartTotal = parseInt(document.getElementById("total").innerHTML);
+
+    // Ensure quantity doesn't go below 1
+    if (qty <= 1) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Minimum Quantity!",
+        });
+        return;
+    }
+
+    $.ajax({
+        url: "/decrement",
+        method: "post",
+        data: {
+            rate,
+            productId,
+            qty,
+            sub,
+        },
+        success: (response) => {
+            if (response.status === true) {
+                const newQty = qty - 1;
+                const newSubtotal = sub - rate;
+                const newCartTotal = cartTotal - rate;
+
+                document.getElementById("quantity" + index).innerHTML = newQty;
+                document.getElementById("subtotal" + index).innerHTML = newSubtotal;
+                document.getElementById("total").innerHTML = newCartTotal;
+
+                // Also update the cart subtotal
+                document.getElementById("cartSub").innerHTML = newCartTotal;
+            } else if (response.status === "minimum") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Minimum Quantity!",
+                });
+            }
+        }
+    });
+
+    document.getElementById('proceed-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        var cartSubtotal = document.getElementById('cartSub').textContent.trim();
+        if (cartSubtotal === 'N/A') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You need to add items to proceed to checkout.',
+                background: '#ffffff',
+                confirmButtonColor: '#000000'
+            });
+        } else {
+            window.location.href = this.querySelector('a').getAttribute('href');
+        }
+    });
+}
+
+</script>
+
+  
+
+  <%- include('../layout/footer') %>
