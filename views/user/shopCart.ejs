@@ -1,4 +1,9 @@
 <%- include('../layout/header') %>
+<style>
+  body {
+    background-color:  rgba(67, 159, 159, 0.315);; 
+  }
+</style>
 
   <!-- search start -->
   <div class="search-content-wrap main-search-active">
@@ -17,39 +22,43 @@
       <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
       <div class="cart-content">
         <h3>Shopping Cart</h3>
-
+  
         <ul>
- 
-        <% if (cartData && cartData.items && cartData.items.length> 0) {
-          %> <% for (let i=0; i < cartData.items.length; i++) { %>
-
-            
+          <% if (cartData && cartData.items && cartData.items.length > 0) { %>
+            <% for (let i = 0; i < cartData.items.length; i++) { %>
               <li class="single-product-cart">
                 <div class="cart-img">
-                  <a href="#"><img src="/productImages/<%= cartData.items[i].productId.images[1] %>" alt="" /></a>
+                  <a href="#">
+                    <% if (cartData.items[i].productId && cartData.items[i].productId.images && cartData.items[i].productId.images[1]) { %>
+                      <img src="/productImages/<%= cartData.items[i].productId.images[1] %>" alt="" />
+                    <% } else { %>
+                      <img src="/path/to/default/image.jpg" alt="Default Image" />
+                    <% } %>
+                  </a>
                 </div>
                 <div class="cart-title">
-                  <h4><a href="#"><%= cartData.items[i].productId.name %></a></h4>
-                  <span> <%= cartData.items[i].price %></span>
+                  <h4><a href="#"><%= cartData.items[i].productId ? cartData.items[i].productId.name : 'Product Name' %></a></h4>
+                  <span><%= cartData.items[i].price %></span>
                 </div>
                 <div class="cart-delete">
                   <a href="#">×</a>
                 </div>
               </li>
-              <% } %>
-              <% } %>
-              
-            </ul>
-            <div class="cart-total">
-              <h4>Subtotal: <span>$170.00</span></h4>
-            </div>
-            <div class="cart-checkout-btn">
-              <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
-              <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
-            </div>
+            <% } %>
+          <% } %>
+        </ul>
+        <div class="cart-total">
+          <h4>Subtotal: <span> <%= cartData.billTotal %></span></h4>
+        </div>
+        <div class="cart-checkout-btn">
+          <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+          <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
+        </div>
       </div>
     </div>
   </div>
+  
+  
   <!-- aside start -->
   <div class="header-aside-active">
     <div class="header-aside-wrap">
@@ -150,7 +159,7 @@
       </div>
     </div>
   </div>
-  <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+  <div class="breadcrumb-area ">
     <div class="container-fluid">
       <div class="breadcrumb-content text-center">
         <div class="breadcrumb-title">
@@ -166,6 +175,8 @@
       </div>
     </div>
   </div>
+
+  
   <!-- cart start -->
   <div class="cart-main-area pt-90 pb-100">
     <div class="container">
@@ -175,90 +186,62 @@
           <div class="row">
             <div class="col-lg-8">
 
-              <div class="table-content table-responsive cart-table-content">
+              <div class="table-content table-responsive cart-table-content p-3" style="background-color: white;">
                 <table>
                   <thead>
                     <tr>
                       <th></th>
                       <th></th>
                       <th>Product</th>
-                      <th> Price</th>
+                      <th>Price</th>
                       <th>Quantity</th>
-                      <th style="padding-left: 0px;">total</th>
+                      <th style="padding-left: 0px;">Total</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (cartData) { %>
-                      <% if(proData.length > 0)  %>
+                    <% if (cartData && proData.length > 0) { %>
                       <% for (let i=0; i < proData.length; i++) { %>
                         <tr>
                           <td class="product-remove">
-                            <a
-                              href="/cartremove?id=<%= cartData.items[i].productId %>&size=<%= cartData.items[i].size %>"><i
-                                class="dlicon ui-1_simple-remove"></i></a>
-                          </td>
-
-                          <td class="product-img sm">
-                            <a href="/productDetails?id=<%= proData[i]._id %>">
-                              <img src="/productImages/<%= proData[i].images[1] %>" alt="pro img"
-                                style="width: 50px; height: 50px;">
+                            <a href="/cartremove?id=<%= proData[i]._id %>">
+                              <i class="dlicon ui-1_simple-remove"></i>
                             </a>
                           </td>
-
+                          <td class="product-img sm">
+                            <a href="/productDetails?id=<%= proData[i]._id %>">
+                              <img src="/productImages/<%= proData[i].images[1] %>" alt="pro img" style="width: 50px; height: 50px;">
+                            </a>
+                          </td>
                           <td class="product-name">
                             <a id="name" href="/productDetails?id=<%= proData[i]._id %>">
                               <%= proData[i].name %>
                             </a>
                           </td>
-
                           <td class="product-price">₹
-                            <span id="discountPrice<%=i%>" class="amount">
+                            <span id="discountPrice<%= i %>" class="amount">
                               <%= proData[i].discountPrice %>
                             </span>
                           </td>
-
-                          
-
-                   
-
                           <td class="cart-quality">
-                            <button
-                              onclick="increment('<%= proData[i]._id%>','1','<%=i%>','<%= proData[i].discountPrice %>','<%=cartData.items[i].price %>')"
-                              style="width: 50px; height: 25px; border: none; color:black; ">+</button>
-
-
-
-                            <div class="detail-qty border radius  m-auto">
-
-                              <span id="quantity<%= i %>">
-                                <%= cartData.items[i].quantity %>
-                              </span>
-
-
+                            <button onclick="increment('<%= proData[i]._id %>', '<%= i %>', '<%= proData[i].discountPrice %>')">+</button>
+                            <div class="detail-qty border radius m-auto">
+                              <span id="quantity<%= i %>"><%= cartData.items[i].quantity %></span>
                             </div>
-                            <button
-                              onclick="decrement('<%= proData[i]._id%>','1','<%=i%>','<%= proData[i].discountPrice %>','<%=cartData.items[i].price %>')"
-                              style="width: 50px; height: 25px; border: none; color: black; ">-</button>
-
-                          </td>
-
-
+                            <button onclick="decrement('<%= proData[i]._id %>', '<%= i %>', '<%= proData[i].discountPrice %>')">-</button>
+                            </td>
                           <td class="product-total" style="padding-left: 20px;">₹
-                            <span id="subtotal<%=i%>">
-                              <%=cartData.items[i].price %>
-                            </span>
+                            <span id="subtotal<%= i %>"><%= cartData.items[i].price %></span>
                           </td>
                         </tr>
-                        <% } %>
-                          <% } %>
-
+                      <% } %>
+                    <% } %>
                   </tbody>
-
                 </table>
               </div>
+              
               <div class="cart-shiping-update-wrapper">
                 <div class="discount-code">
-                  <a href="allProducts"><button class="coupon-btn" type="submit">click here to shop more.</button></a>
+                  <a href="/shop"><button class="coupon-btn" type="submit">click here to shop more.</button></a>
                   
                 </div>
                 <div class="cart-clear">
@@ -273,7 +256,7 @@
               
             </div>
             <div class="col-lg-4">
-              <div class="grand-total-wrap">
+              <div class="grand-total-wrap" style="background-color: white;">
 
                 <h4>Cart totals</h4>
                 <div class="grand-total-content">
@@ -313,121 +296,153 @@
     </div>
   </div>
   
+  
   <script>
-  function increment(productId, quantity, index, price, total) {
-    const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
-    const rate = parseInt(document.getElementById("discountPrice" + index).innerHTML);
-    const sub = parseInt(document.getElementById("subtotal" + index).innerHTML);
-    const cartTotal = parseInt(document.getElementById("total").innerHTML);
-
-    $.ajax({
-        url: "/increment",
-        method: "post",
-        data: {
-            qty,
-            rate,
-            sub,
-            cartTotal,
-            productId
-        },
-        success: (response) => {
-            if (response.status === true) {
-                const newQty = qty + 1;
-                const newSubtotal = rate + sub;
-                const newCartTotal = cartTotal + rate;
-
-                document.getElementById("subtotal" + index).innerHTML = newSubtotal;
-                document.getElementById("quantity" + index).innerHTML = newQty;
-                document.getElementById("total").innerHTML = response.cartTotal;
-
-                // Also update the cart subtotal
-                document.getElementById("cartSub").innerHTML = newCartTotal;
-            } else if (response.status === "maximum") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Cart limit reached",
-                });
-            } else {
-                let error = "An error occurred";
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: error,
-                });
-            }
-        }
-    });
-}
-
-
-  function decrement(productId, quantity, index, price, total) {
-    const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
-    const rate = parseInt(document.getElementById("discountPrice" + index).innerHTML);
-    const sub = parseInt(document.getElementById("subtotal" + index).innerHTML);
-    const cartTotal = parseInt(document.getElementById("total").innerHTML);
-
-    // Ensure quantity doesn't go below 1
-    if (qty <= 1) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Minimum Quantity!",
-        });
-        return;
+    function updateCartValues(index, newQty, newSubtotal, newCartTotal) {
+        document.getElementById("quantity" + index).innerHTML = newQty;
+        document.getElementById("subtotal" + index).innerHTML = newSubtotal.toFixed(2);
+        document.getElementById("total").innerHTML = newCartTotal.toFixed(2);
+        document.getElementById("cartSub").innerHTML = newCartTotal.toFixed(2);
     }
 
-    $.ajax({
-        url: "/decrement",
-        method: "post",
-        data: {
-            rate,
-            productId,
-            qty,
-            sub,
-        },
-        success: (response) => {
-            if (response.status === true) {
-                const newQty = qty - 1;
-                const newSubtotal = sub - rate;
-                const newCartTotal = cartTotal - rate;
+    function increment(productId, index, price) {
+        const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
+        const rate = parseFloat(price);
+        const cartTotal = parseFloat(document.getElementById("total").innerHTML);
 
-                document.getElementById("quantity" + index).innerHTML = newQty;
-                document.getElementById("subtotal" + index).innerHTML = newSubtotal;
-                document.getElementById("total").innerHTML = newCartTotal;
-
-                // Also update the cart subtotal
-                document.getElementById("cartSub").innerHTML = newCartTotal;
-            } else if (response.status === "minimum") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Minimum Quantity!",
-                });
+        $.ajax({
+            url: "/increment",
+            method: "post",
+            data: { productId },
+            success: (response) => {
+                if (response.status === true) {
+                    const newQty = qty + 1;
+                    const newSubtotal = rate * newQty;
+                    const newCartTotal = cartTotal + rate;
+                    updateCartValues(index, newQty, newSubtotal, newCartTotal);
+                } else if (response.status === "low") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Low Stock!",
+                    });
+                } else if (response.status === "max") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: response.message,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "An error occurred",
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 
-    document.getElementById('proceed-btn').addEventListener('click', function (event) {
-        event.preventDefault();
+    function decrement(productId, index, price) {
+        const qty = parseInt(document.getElementById("quantity" + index).innerHTML);
+        const rate = parseFloat(price);
+        const cartTotal = parseFloat(document.getElementById("total").innerHTML);
 
-        var cartSubtotal = document.getElementById('cartSub').textContent.trim();
-        if (cartSubtotal === 'N/A') {
+        if (qty <= 1) {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'You need to add items to proceed to checkout.',
-                background: '#ffffff',
-                confirmButtonColor: '#000000'
+                icon: "error",
+                title: "Oops...",
+                text: "Minimum Quantity!",
             });
-        } else {
-            window.location.href = this.querySelector('a').getAttribute('href');
+            return;
         }
-    });
+
+        $.ajax({
+            url: "/decrement",
+            method: "post",
+            data: { productId },
+            success: (response) => {
+                if (response.status === true) {
+                    const newQty = qty - 1;
+                    const newSubtotal = rate * newQty;
+                    const newCartTotal = cartTotal - rate;
+                    updateCartValues(index, newQty, newSubtotal, newCartTotal);
+                } else if (response.status === "minimum") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Minimum Quantity!",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "An error occurred",
+                    });
+                }
+            }
+        });
+    }
+
+
+
+    async function applyCoupon(){
+            try{
+            let couponCode = document.getElementById('couponCode').value;
+            console.log(couponCode)
+
+            let response = await fetch("/applycoupon",{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({
+                    couponCode
+                })
+            }) 
+            let responseData = await response.json();
+            if(response.status===200){
+            swal.fire({
+                        title:"Sucess",
+                        text:responseData.message,
+                        icon:"Success",
+                        confirmButtonText:"OK"
+                    }).then(()=>{
+                        window.location.reload()
+                    })
+                }
+                else{
+                    swal.fire({
+                        title:"error",
+                        text:responseData.message,
+                        icon:"error",
+                        confirmButtonText:"OK"
+                    })
+                }
+            }catch(error){
+                console.error("Error applying coupon:", error);
+        swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+    }
 }
+ 
+
 
 </script>
+
+
+
+
+  
 
   
 
   <%- include('../layout/footer') %>
+
+  
+
+

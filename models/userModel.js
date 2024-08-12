@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { token } from "morgan";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -25,6 +26,10 @@ const userSchema = new mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:false
+    },
+    token :{
+        type :String,
+        default: '',
     },
    
 

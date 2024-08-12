@@ -62,14 +62,32 @@ const product = new Product({
         }
     };
     
-
+    
     // to save the changes in edit
+
+    
     export const editProduct = async (req, res) => {
+        try {
+        let existingImages = []
+        let existingProduct = await Product.findById(req.query.id)
+        const categoryDetails = await Category.find({ is_Active: true })
+        if (existingProduct && existingProduct.images && Array.isArray(existingProduct.images)) {
+            existingImages = existingProduct.images
+        }
+        let newImages = []
+        if (req.files && req.files.length) {
+            newImages = req.files.map(file => file.filename)
+        }
+
+        const allImages = existingImages.concat(newImages)
+
         const id = req.query.id;
         const { name, description, price, discountPrice, stock, category } = req.body;
         const images = req.files ? req.files.map(file => file.filename) : [];
-    
-        try {
+        console.log(id,"klaa klaaa")
+        
+
+            
             // Perform your update operation here
             const product = await Product.findByIdAndUpdate(id, {
                 name: name,
@@ -77,7 +95,7 @@ const product = new Product({
                 price: price,
                 stock: stock,
                 discountPrice: discountPrice,
-                images: images,
+                images: allImages,
                 category: category
             });
     

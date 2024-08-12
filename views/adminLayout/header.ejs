@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
@@ -67,6 +68,33 @@
                         <span class="text">Coupons</span>
                     </a>
                 </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="#" onclick="toggleSubmenu(event)"> 
+                        <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Offers</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/categoryOffer">Category offer</a>
+                        <a href="/admin/productoffer">Product offer</a>
+                    </div>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesreport"> <i class="icon material-icons md-assessment"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                   
+                </li>
+                
+                
             </ul>
         </nav>
     </aside>
+
+    <script>
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const menuItem = event.currentTarget.parentElement;
+            menuItem.classList.toggle('active');
+        }
+        </script>
+        

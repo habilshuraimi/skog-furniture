@@ -44,7 +44,7 @@ const orderSchema = new mongoose.Schema({
           type: Number,
           required: true,
         },
-      }, ],
+      }],
       billTotal: {
         type: Number,
         required: true,
@@ -58,16 +58,15 @@ const orderSchema = new mongoose.Schema({
         default: 'Pending',
       },
       deliveryAddress: {
-        type: {
+        type:           {
           addressType: String,
-          HouseNo: String,
-          Street: String,
-          Landmark: String,
+          houseNo: String,
+          street: String,
+          landmark: String,
           pincode: Number,
           city: String,
-          district: String,
-          State: String,
-          Country: String,
+          district:String,
+          state: String,
         },
         required: true,
       },

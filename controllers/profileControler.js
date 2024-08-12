@@ -1,17 +1,26 @@
 import Address from "../models/addressModel.js";
 import User from "../models/userModel.js";
-import Order from "../models/orderModel.js"
+import Order from "../models/orderModel.js" 
+import Wallet from "../models/walletModel.js";
+import Cart from "../models/cartModel.js";
 
 export const loadProfile = async (req, res) => {
   try {
     const id = req.session.user;
     const user = await User.findById(id);
     const addressDoc = await Address.findOne({ user: id });
-    const orders = await Order.find({ user: id })
+    const orders = await Order.find({ user: id }).populate({path:'items.productId',model:'Product'}).sort({ createdAt: -1 });;
+    const wallet = await Wallet.findOne({user:id}).populate("orders")||null
+    const cartProduct = await Cart.findOne({ owner: id }).populate('items.productId');
+    console.log(orders)
+
+  
     res.render("profile", {
       user: user,
       addresses: addressDoc ? addressDoc.addresses : [],
-      orders:orders
+      orders:orders,
+      wallet:wallet,
+      cartProduct
     });
   } catch (error) {
     console.log(error);
@@ -19,8 +28,14 @@ export const loadProfile = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.session.destroy;
-  res.redirect("/login");
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error in logging out");
+    } else {
+      res.redirect("/login");
+    }
+  });
 };
 
 export const loadAddAddress = (req, res) => {
@@ -29,59 +44,81 @@ export const loadAddAddress = (req, res) => {
 
 export const saveAddress = async (req, res) => {
   try {
-    const id = req.session.user;
-    // userP in this P stands for work of a profile load etc.....
+    const user = req.session.user;
+    if (!user) {
+      return res.status(400).send("User not logged in");
+    }
+
     const {
       addressType,
       name,
       mobile,
-      house,
-      area,
+      houseNo,
+      street,
       landmark,
       pincode,
       city,
+      district,
       state,
     } = req.body;
-    const user = req.session.user;
+
+    // Validate that all required fields are present
+    if (
+      !addressType ||
+      !name ||
+      !mobile ||
+      !houseNo ||
+      !street ||
+      !landmark ||
+      !pincode ||
+      !city ||
+      !district||
+      !state
+    ) {
+      return res.status(400).send("All fields are required");
+    }
 
     const newAddress = {
-      addressType: addressType,
-      name: name,
-      mobile: mobile,
-      HouseNo: house,
-      Street: area,
-      Landmark: landmark,
-      pincode: pincode,
-      city: city,
-      State: state,
+      addressType,
+      name,
+      mobile,
+      houseNo,
+      street,
+      landmark,
+      pincode,
+      city,
+      district,
+      state,
     };
 
-    // Find the existing address document for the user
-    let addressDoc = await Address.findOne({ user: user });
+    let addressDoc = await Address.findOne({ user });
 
     if (!addressDoc) {
-      // If no address document exists, create a new one
       addressDoc = new Address({
-        user: user,
+        user,
         addresses: [newAddress],
       });
     } else {
-      // If an address document exists, push the new address to the addresses array
       if (addressDoc.addresses.length >= 3) {
-        throw new Error("You can have a maximum of 3 addresses.");
+        return res.status(400).send("You can have a maximum of 3 addresses."); 
       }
       addressDoc.addresses.push(newAddress);
     }
-    console.log(newAddress, "newAddress");
-    console.log(addressDoc, "addressDoc");
+
+    console.log("Saving address:", newAddress);
+    console.log("Address document before save:", addressDoc);
 
     await addressDoc.save();
+
+    console.log("Address document after save:", addressDoc);
+
     res.redirect("/profile");
   } catch (error) {
-    console.log(error.message);
+    console.error("Error saving address:", error.stack);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 //save edited addres
 export const editAddress = async (req, res) => {

@@ -1,5 +1,10 @@
 <%- include ('../layout/header') %>
 
+<style>
+    body {
+      background-color:  rgba(67, 159, 159, 0.315);; 
+    }
+  </style>
 
     <!-- search start -->
     <div class="search-content-wrap main-search-active">
@@ -15,41 +20,36 @@
     <!-- mini cart start -->
     <div class="sidebar-cart-active">
         <div class="sidebar-cart-all">
-            <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
-            <div class="cart-content">
-                <h3>Shopping Cart</h3>
-                <ul>
-
-                    <% if (cartProduct && cartProduct.items && cartProduct.items.length> 0) {
-                      %> <% for (let i=0; i < cartProduct.items.length; i++) { %>
-            
-                        
-                          <li class="single-product-cart">
-                            <div class="cart-img">
-                              <a href="#"><img src="/productImages/<%= cartProduct.items[i].productId.images[1] %>" alt="" /></a>
-                            </div>
-                            <div class="cart-title">
-                              <h4><a href="#"><%= cartProduct.items[i].productId.name %></a></h4>
-                              <span> <%= cartProduct.items[i].price %></span>
-                            </div>
-                            <div class="cart-delete">
-                              <a href="#">×</a>
-                            </div>
-                          </li>
-                          <% } %>
-                          <% } %>
-                          
-                        </ul>
-                <div class="cart-total">
-                    <h4>Subtotal: <span>$170.00</span></h4>
-                </div>
-                <div class="cart-checkout-btn">
-                    <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
-                    <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">checkout</a>
-                </div>
+          <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+          <div class="cart-content">
+            <h3>Shopping Cart</h3>
+            <ul>
+              <% if (cartProduct && cartProduct.items && cartProduct.items.length > 0) { %> 
+                <% for (let i = 0; i < cartProduct.items.length; i++) { %>
+                  <li class="single-product-cart">
+                    <div class="cart-img">
+                      <a href="#"><img src="/productImages/<%= cartProduct.items[i].productId.images[1] %>" alt="" /></a>
+                    </div>
+                    <div class="cart-title">
+                      <h4><a href="#"><%= cartProduct.items[i].productId.name %></a></h4>
+                      <span><%= cartProduct.items[i].price %></span>
+                    </div>
+                    <div class="cart-delete">
+                      <a href="#">×</a>
+                    </div>
+                  </li>
+                <% } %>
+              <% } %>
+            </ul>
+            <div class="cart-total">
             </div>
+            <div class="cart-checkout-btn">
+              <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+              <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     <!-- aside start -->
     <div class="header-aside-active">
         <div class="header-aside-wrap">

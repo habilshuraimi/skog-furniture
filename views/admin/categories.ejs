@@ -71,7 +71,7 @@
                                         <p id="descriptionError" class="text-danger"></p>
                                     </div>
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-success float-end">save</button>
+                                        <button type="submit" class="btn btn-dark float-end">save</button>
 
                                     </div>
                                     <div>
@@ -112,14 +112,14 @@
                     <% } %>
                 </td>
                 <td width="60%">
-                    <a href="/admin/editCategory?id=<%= category[i]._id %>" class="btn btn-primary">Edit</a><br><br>
+                    <a href="/admin/editCategory?id=<%= category[i]._id %>" class="btn btn-dark">Edit</a><br><br>
                     <a href="/admin/deleteCategory?id=<%= category[i]._id %>">
                     <% if(category[i].isActive) { %>
                         <!-- If category is active, show delete button -->
-                        <button onclick="toggleCategory('<%= category[i]._id %>', 'inactive')" class="btn btn-danger" >Delete</button>
+                        <button onclick="toggleCategory('<%= category[i]._id %>', 'inactive')" class="btn btn-dark" >Delete</button>
                     <% } else { %>
                         <!-- If category is inactive, show restore button -->
-                        <button onclick="toggleCategory('<%= category[i]._id %>', 'active')" class="btn btn-success">Restore</button>
+                        <button onclick="toggleCategory('<%= category[i]._id %>', 'active')" class="btn btn-dark">Restore</button>
                     <% } %></a>
                 </td>
             </tr>
@@ -146,7 +146,7 @@
                 <div class="col-sm-6">
                     <script>
                     document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
+                    </script> ©, Skog Furniture
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end">

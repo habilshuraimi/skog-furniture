@@ -314,14 +314,11 @@
                     <div class="card ">
                         <div class="card-header" style="font-weight: bolder;">General Details</div>
                         <div class="card-body">
-                            <form id="orderStatusForm"
-                                onsubmit="submitOrderStatusForm('<%= orders.oId %>'); return false;">
+                            <form id="orderStatusForm" onsubmit="submitOrderStatusForm('<%= orders.oId %>'); return false;">
                                 <label for="orderId" style="font-weight: bolder;">Order Id:</label><br>
                                 <%= orders.oId %><br /><br />
                                 <label for="orderDate" style="font-weight: bolder;">Order Date:</label><br>
-                                <input type="text" class="mt-2 mb-2 text-brand border-0"
-                                    value="<%= orders.orderDate %>" disabled /><br>
-
+                                <input type="text" class="mt-2 mb-2 text-brand border-0" value="<%= orders.orderDate %>" disabled /><br>
                                 <label for="orderStatus mt-4" style="font-weight: bolder;">Order Status:</label><br>
                                 <select name="orderStatus" class="form-select mt-2" data-live-search="true">
                                     <% switch (orders.status) {
@@ -333,7 +330,6 @@
                                     <option value="Canceled">Canceled</option>
                                     <% break;
                                         case 'Processing': %>
-                                    
                                     <option value="Processing" selected>Processing</option>
                                     <option value="Shipped">Shipped</option>
                                     <option value="Delivered">Delivered</option>
@@ -344,15 +340,16 @@
                                     <option value="Delivered">Delivered</option>
                                     <option value="Canceled">Canceled</option>
                                     <% break;
-                                       case 'Canceled': %>
-                                    <option value="Canceled">Canceled</option>
-                                    <% break;                                                  
+                                        case 'Canceled': %>
+                                    <option value="Canceled" selected>Canceled</option>
+                                    <% break;
                                         default: %>
                                     <option value="Delivered">Delivered</option>
                                     <% } %>
                                 </select><br>
-                                <button type="submit" class="btn btn-primary">Save Order</button>
+                                <button type="submit" class="btn btn-dark">Save Order</button>
                             </form>
+                            
 
 
                         </div>
@@ -395,13 +392,13 @@
         <br><br>
         <p>request status :<%= orders.requests[0].status %></p>
 
-        <button class="btn btn-success" onclick="acceptCancel('<%=orders.oId %>','<%=orders.user._id%>')">Accept</button>
-        <button class="btn btn-danger" onclick="rejectCancel('<%=orders.oId %>')">Reject</button>
+        <button class="btn btn-dark" onclick="acceptCancel('<%=orders.oId %>','<%=orders.user._id%>')">Accept</button>
+        <button class="btn btn-dark" onclick="rejectCancel('<%=orders.oId %>')">Reject</button>
        
 <% } else if (orders.status === 'Delivered' && orders.requests[0].status === 'Pending') { %>
         <strong class="text-brand mb-3 mt-2 text-center">Order Returned <span style="font-size: 14px; color: black;">(Reason)</span></strong>
         <input type="text" value="<%= orders.requests[0].reason %>" readonly class="mb-3 text-center border-0">
-        <button class="btn btn-success w-50 mb-3 text-center ms-5 refund"  onclick="refundAmount('<%= orders._id %>','<%= orders.user._id %>')" >Accept Return Order</button>
+        <button class="btn btn-dark w-50 mb-3 text-center ms-5 refund"  onclick="refundAmount('<%= orders._id %>','<%= orders.user._id %>')" >Accept Return Order</button>
 <% } else { %>
         <!-- Display other request details as needed -->
         <% orders.requests.forEach(request => { %>
@@ -435,11 +432,11 @@
 
                             <label for="HouseNo" style="font-weight: bolder;">House Number:</label>
                             <span class="text-brand"
-                                style="font-weight: bolder;"><%= orders.deliveryAddress.HouseNo %></span><br>
+                                style="font-weight: bolder;"><%= orders.deliveryAddress.houseNo %></span><br>
 
                             <label for="Street" style="font-weight: bolder;">Street:</label>
                             <span class="text-brand"
-                                style="font-weight: bolder;"><%= orders.deliveryAddress.Street %></span><br>
+                                style="font-weight: bolder;"><%= orders.deliveryAddress.street %></span><br>
 
                             <label for="Landmark" style="font-weight: bolder;">Landmark:</label>
                             <span class="text-brand"
@@ -459,11 +456,8 @@
 
                             <label for="State" style="font-weight: bolder;">State:</label>
                             <span class="text-brand"
-                                style="font-weight: bolder;"><%= orders.deliveryAddress.State %></span><br>
+                                style="font-weight: bolder;"><%= orders.deliveryAddress.state %></span><br>
 
-                            <label for="Country" style="font-weight: bolder;">Country:</label>
-                            <span class="text-brand"
-                                style="font-weight: bolder;"><%= orders.deliveryAddress.Country %></span><br>
                         </div>
                     </div>
 
@@ -488,52 +482,50 @@
         </div>
     </div>
     <script>
-        function submitOrderStatusForm(orderId) {
-            const newStatus = document.querySelector('select[name="orderStatus"]').value;
-            
-          
-            fetch('/admin/updateorderstatus', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                         newStatus,
-                        orderId
-                    }),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                       
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Order Status Updated',
-                            text: 'The order status has been updated successfully.',
-                        });
-                    } else {
-                        
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error Updating Order Status',
-                            text: data.message || 'An error occurred while updating the order status.',
-                        });
-                    }
-                })
-                .catch((error) => {
-                
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fetch Error',
-                        text: 'An error occurred while making the request.',
-                    });
-                });
-        }
-
-
+      function submitOrderStatusForm(orderId) {
+    const newStatus = document.querySelector('select[name="orderStatus"]').value;
     
-        function acceptCancel(orderId, userId) {
- 
+    // Log the data being sent for debugging
+    console.log("Updating Order Status:", { orderId, newStatus });
+
+    fetch('/admin/updateOrderStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ newStatus, orderId }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Log the response data for debugging
+      console.log("Response Data:", data);
+      if (data.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Status Updated',
+          text: 'The order status has been updated successfully.',
+        }).then(()=>{
+            window.location.reload()
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error Updating Order Status',
+          text: data.message || 'An error occurred while updating the order status.',
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Fetch Error:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Fetch Error',
+        text: 'An error occurred while making the request.',
+      });
+    });
+}
+
+ function acceptCancel(orderId,userId){
     Swal.fire({
         title: 'Are you sure?',
         text: "You are about to accept the  request.",
@@ -545,7 +537,7 @@
     }).then((result) => {
       
         if (result.isConfirmed) {
-          
+          console.log(orderId,userId,"ouid")
             fetch('/admin/acceptCancel', {
                 method: 'POST',
                 headers: {
@@ -567,7 +559,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error Updating Request',
-                        text: data.message || 'An error occurred while updating the user request.',
+                        text:  'An error occurred while updating the user request.',
                     });
                 }
         })
@@ -580,8 +572,9 @@
                 });
             });
         }
-    });
-}
+    })
+};
+
 
 
 

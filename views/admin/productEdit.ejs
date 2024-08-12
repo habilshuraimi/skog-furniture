@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Your head content here -->
-</head>
-<body>
-    <%- include ('../adminLayout/header') %>
-
+<%- include ('../adminLayout/header') %>
     <main class="main-wrap">
         <header class="main-header navbar">
             <div class="col-search"></div>
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> 
-                    <i class="material-icons md-apps"></i> 
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
                 </button>
                 <ul class="nav">
                     <li class="nav-item">
@@ -21,8 +14,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-icon darkmode" href="#"> 
-                            <i class="material-icons md-nights_stay"></i> 
+                        <a class="nav-link btn-icon darkmode" href="#">
+                            <i class="material-icons md-nights_stay"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -31,7 +24,8 @@
                         </a>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
+                            aria-expanded="false">
                             <i class="material-icons md-public"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
@@ -50,7 +44,8 @@
                         </div>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> 
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                            aria-expanded="false">
                             <img class="img-xs rounded-circle" src="adminassets/imgs/people/avatar2.jpg" alt="User">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
@@ -83,73 +78,102 @@
                 <div class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4>Add Product</h4>
+                            <h4>Edit Product</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/admin/editProduct" enctype="multipart/form-data" onsubmit="return validateForm()">                                <!-- General Information Section -->
+                            <form method="post" action="/admin/editproduct?id=<%= proData._id %>"
+                                enctype="multipart/form-data" onsubmit="return validateForm()">
+                                <!-- General Information Section -->
                                 <div class="mb-4">
                                     <label for="product_name" class="form-label">Name</label>
-                                    <input type="text" placeholder="Type product name here" class="form-control" name="name" id="product_name" value="<%= proData.name %>">
+                                    <input type="text" placeholder="Type product name here" class="form-control"
+                                        name="name" id="product_name" value="<%= proData.name %>">
                                     <p id="nameError" class="text-danger"></p> <!-- Placeholder for name error -->
                                 </div>
-                              
+
                                 <div class="mb-4">
                                     <label for="product_description" class="form-label">Description</label>
-                                    <textarea placeholder="Type product description here" class="form-control" name="description" id="product_description"><%= proData.description %></textarea>
-                                    <p id="descriptionError" class="text-danger"></p> <!-- Placeholder for description error -->
+                                    <textarea placeholder="Type product description here" class="form-control"
+                                        name="description"
+                                        id="product_description"><%= proData.description %></textarea>
+                                    <p id="descriptionError" class="text-danger"></p>
+                                    <!-- Placeholder for description error -->
                                 </div>
-                            
+
                                 <!-- Pricing Section -->
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-4">
                                             <label for="regular_price" class="form-label">Price</label>
-                                            <input placeholder="₹" type="text" class="form-control" name="price" id="regular_price" value="<%= proData.price %>">
-                                            <p id="priceError" class="text-danger"></p> <!-- Placeholder for price error -->
+                                            <input placeholder="₹" type="text" class="form-control" name="price"
+                                                id="regular_price" value="<%= proData.price %>">
+                                            <p id="priceError" class="text-danger"></p>
+                                            <!-- Placeholder for price error -->
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-4">
                                             <label for="discount_price" class="form-label">Discount Price</label>
-                                            <input placeholder="₹" type="text" class="form-control" name="discountPrice" id="discount_price" value="<%= proData.discountPrice %>">
-                                            <p id="discountPriceError" class="text-danger"></p> <!-- Placeholder for discount price error -->
+                                            <input placeholder="₹" type="text" class="form-control" name="discountPrice"
+                                                id="discount_price" value="<%= proData.discountPrice %>">
+                                            <p id="discountPriceError" class="text-danger"></p>
+                                            <!-- Placeholder for discount price error -->
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-4">
                                             <label for="stock_count" class="form-label">Count of Stock</label>
-                                            <input type="number" class="form-control" name="stock" id="stock_count" value="<%= proData.stock %>">
-                                            <p id="stockError" class="text-danger"></p> <!-- Placeholder for stock error -->
+                                            <input type="number" class="form-control" name="stock" id="stock_count"
+                                                value="<%= proData.stock %>">
+                                            <p id="stockError" class="text-danger"></p>
+                                            <!-- Placeholder for stock error -->
                                         </div>
                                     </div>
                                 </div>
-                            
+
                                 <!-- Category Section -->
                                 <div class="mb-4">
-                                    <% if(category.length > 0) {
+                                    <% if(category.length> 0) {
                                         for(let i=0; i<category.length; i++) { %>
                                             <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                                <input class="form-check-input" value="<%= category[i]._id %>" name="category" id="category_<%= i %>" type="radio">
-                                                <span class="form-check-label"> <%= category[i].name %> </span>
+                                                <input class="form-check-input" value="<%= category[i]._id %>"
+                                                    name="category" id="category_<%= i %>" type="radio">
+                                                <span class="form-check-label">
+                                                    <%= category[i].name %>
+                                                </span>
                                             </label>
-                                    <%}}%>
-                                    <div id="categoryError" class="text-danger"></div> <!-- Placeholder for category error -->
+                                            <%}}%>
+                                                <div id="categoryError" class="text-danger"></div>
+                                                <!-- Placeholder for category error -->
                                 </div>
-                            
+
+                                <!-- Media Section for Images -->
                                 <!-- Media Section for Images -->
                                 <div class="mb-4">
                                     <label for="product_images" class="form-label">Images</label>
                                     <input type="file" class="form-control" name="images" id="product_images" multiple>
                                     <small class="form-text text-muted">You can select multiple images.</small>
                                     <p id="imagesError" class="text-danger"></p> <!-- Placeholder for images error -->
+                                    <div id="imagePreview" class="mt-3">
+                                        <% if(proData.images && proData.images.length> 0) { %>
+                                            <% proData.images.forEach((image)=> { %>
+                                                <div class="image-preview">
+                                                    <img src="/productImages/<%= image %>" alt="Product Image"
+                                                        class="img-thumbnail" width="100">
+                                                </div>
+                                                <% }); %>
+                                                    <% } %>
+                                    </div>
                                 </div>
-                            
+
+
                                 <div class="mb-4">
-                                    <div id="mainError" class="text-danger"></div> <!-- Main error message placeholder -->
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <div id="mainError" class="text-danger"></div>
+                                    <!-- Main error message placeholder -->
+                                    <button type="submit" class="btn btn-dark">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div>
                     </div> <!-- card end// -->
                 </div>
@@ -159,8 +183,8 @@
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
                     <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Skog Furniture  .
+                        document.write(new Date().getFullYear())
+                    </script> ©, Skog Furniture
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end">
@@ -185,7 +209,7 @@
             const discountPriceInput = document.getElementById('discount_price');
             const stockInput = document.getElementById('stock_count');
             const imagesInput = document.getElementById('product_images');
-        
+
             nameInput.addEventListener('input', () => {
                 validateName();
             });
@@ -201,9 +225,9 @@
             stockInput.addEventListener('input', () => {
                 validateStock();
             });
-            imagesInput.addEventListener('change', () => {
-                validateImages();
-            });
+            // imagesInput.addEventListener('change', () => {
+            //     validateImages();
+            // });
         });
 
         function validateForm() {
@@ -215,7 +239,7 @@
             isValid = validateDiscountPrice() && isValid;
             isValid = validateStock() && isValid;
             isValid = validateCategory() && isValid;
-            isValid = validateImages() && isValid;
+            // isValid = validateImages() && isValid;
 
             return isValid;
         }
@@ -310,7 +334,7 @@
             const images = document.getElementById('product_images').files;
             const imagesError = document.getElementById('imagesError');
 
-            if (images.length <3) {
+            if (images.length < 3) {
                 imagesError.textContent = "At least three image is required.";
                 return false;
             } else {
@@ -319,5 +343,6 @@
             }
         }
     </script>
-</body>
-</html>
+    </body>
+
+    </html>

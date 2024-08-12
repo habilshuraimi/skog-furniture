@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+const objectId = mongoose.Schema.Types.ObjectId;
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -6,11 +7,11 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: objectId,
         required: true,
     },
     price: {
-        type: String,
+        type: Number,
         required: true,
     },
     stock: {
@@ -22,7 +23,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     discountPrice: {
-        type: String,
+        type: Number,
         required: true 
     },
     isActive: {

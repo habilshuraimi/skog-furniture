@@ -1,0 +1,554 @@
+<%- include ('../layout/header') %>
+
+      <!-- search start -->
+      <div class="search-content-wrap main-search-active">
+        <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
+        <div class="search-content">
+          <p>Start typing and press Enter to search</p>
+          <form class="search-form" action="#">
+            <input type="text" placeholder="Search" />
+            <button class="button-search">
+              <i class="dlicon ui-1_zoom"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- mini cart start -->
+      <div class="sidebar-cart-active">
+        <div class="sidebar-cart-all">
+          <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+          <div class="cart-content">
+            <h3>Shopping Cart</h3>
+            <ul>
+              <% if (cartData && cartData.items && cartData.items.length > 0) { %> 
+                <% for (let i = 0; i < cartData.items.length; i++) { %>
+                  <li class="single-product-cart">
+                    <div class="cart-img">
+                      <a href="#"><img src="/productImages/<%= cartData.items[i].productId.images[1] %>" alt="" /></a>
+                    </div>
+                    <div class="cart-title">
+                      <h4><a href="#"><%= cartData.items[i].productId.name %></a></h4>
+                      <span><%= cartData.items[i].price %></span>
+                    </div>
+                    <div class="cart-delete">
+                      <a href="#">×</a>
+                    </div>
+                  </li>
+                <% } %>
+              <% } %>
+            </ul>
+            <div class="cart-total">
+            </div>
+            <div class="cart-checkout-btn">
+              <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+              <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <div class="breadcrumb-title">
+                        <h2>Login / Register</h2>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home 01 </a>
+                        </li>
+                        <li><span> > </span></li>
+                        <li class="active">Register </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+      <!-- <div class="login-register-area pt-95 pb-100"> -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <!-- <div class="login-register-wrap mr-70">
+                            <h3><i class="fa fa-user-o"></i> Login</h3>
+                            <div class="login-register-form">
+                                <form action="#">
+                                    <div class="sin-login-register">
+                                        <label>Username or email address <span>*</span></label>
+                                        <input type="text" name="user-name">
+                                    </div>
+                                    <div class="sin-login-register">
+                                        <label>Password <span>*</span></label>
+                                        <input type="password" name="password">
+                                    </div>
+                                    <div class="login-register-btn-remember">
+                                        <div class="login-register-btn">
+                                            <button type="submit">Log in</button>
+                                        </div>
+                                        <div class="login-register-remember">
+                                            <input type="checkbox">
+                                            <label>Remember me</label>
+                                        </div>
+                                    </div>
+                                    <a href="#">Lost your password?</a>
+                                </form>
+                            </div>
+                        </div> -->
+          </div>
+          <!-- <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+                        <div class="container-fluid">
+                            <div class="breadcrumb-content text-center">
+                                <div class="breadcrumb-title">
+                                    <h2>My Account</h2>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="index.html">Home 01 </a>
+                                    </li>
+                                    <li><span> &gt; </span></li>
+                                    <li class="active"> My Account </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+          
+          <div class="my-account-area pt-10 pb-95">
+            <div class="container" style="margin-left: 0">
+              <div class="row flex-row-reverse">
+               
+                  <!-- Orders Tab Pane Start -->
+                  <section class="mt-60 mb-60">
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="card border border-dark mb-3 col-md-10">
+                          <div class=" text-center">
+                            <h4 style="font-weight: bold; margin-top: 9px;">Order Summary</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table shopping-summery text-center clean">
+                                <thead>
+                                  <tr class="main-heading" style="background-color: rgba(228, 228, 228, 0.871);">
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Subtotal</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Payment Mode</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% var subtotal=0 %> <% if (proData && findOrder) { %> <% for(let i = 0; i < proData.length; i++) { %>
+                                  <tr>
+                                    <td class="image product-thumbnail">
+                                      <img src="productImages/<%= proData[i].images[i] %>" alt="#" class="img-fluid" style="max-width: 200px; max-height: 200px;" />
+                                    </td>
+                                    <td class="product-des product-name">
+                                      <p class="product-name text-start">
+                                        <a href="#"><b><%= proData[i].name %></b></a>
+                                      </p>
+                                      <p class="font-xs text-start"><%= proData[i].descripiton %></p>
+                                    </td>
+                                    <td class="price" data-title="Price">
+                                      <span><%= new Date(findOrder.orderDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+                                    </td>
+                                    <td class="text-right" data-title="Cart">
+                                      <span><%=  findOrder.deliveryAddress.addressType %></span>
+                                      <br>
+                                      <span><%=  findOrder.deliveryAddress.pincode %></span>
+                                      <br>
+                                      <span><%=  findOrder.deliveryAddress.city %></span>
+                                    </td>
+                                    <td class="text-right" data-title="Cart">
+                                      <span><%= findOrder.items[i].price %></span>
+                                    </td>
+                                    <td class="text-center" data-title="Stock">
+                                      <div >
+                                        <span ><%= findOrder.items[i].quantity %></span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <span><%=  findOrder.paymentMethod %></span>
+                                    </td>
+                                  </tr>
+                                  <% } %> <% } %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                  
+                       
+                  
+                        <div class="col-md-6 col-lg-6 mx-auto">
+                          <div class="border p-md-4 p-30 border-radius-10 cart-totals">
+                            <div class="heading_s1 mb-3">
+                              <h4>Totals</h4>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <td class="cart_total_label">Subtotal</td>
+                                    <td class="cart_total_amount">
+                                      <span class="font-lg fw-900 text-brand">₹<%=findOrder. billTotal %></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="cart_total_label">Shipping</td>
+                                    <td class="cart_total_amount">
+                                      <i class="ti-gift mr-5"></i> Free Shipping
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="cart_total_label">Discount</td>
+                                    <% var discount = subtotal - findOrder.totalAmount %>
+                                    <td class="cart_total_amount">
+                                      <i class="ti-gift mr-5"></i> 0
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="cart_total_label">Total</td>
+                                    <td class="cart_total_amount">
+                                      <strong><span class="font-xl fw-900 text-brand">₹<%=findOrder. billTotal %></span></strong>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                  
+                            <% if (findOrder.status == "Canceled") { %>
+                            <p class="text-danger font-weight-bold">Canceled</p>
+                            <% } else if (findOrder.status == "Delivered") { %>
+                            <p class="text-success font-weight-bold mb-3">Delivered</p>
+                            <button onclick="Return()" class="btn btn-dark mb-3">Request Return</button>
+                            <div >
+                              <button type="submit" onclick="invoice('<%=findOrder._id%>')" class="btn btn-dark">Download Invoice</button>
+                            </div>
+                            <div id="reason" style="display: none">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="dont_want" name="reason" value="Don't want the product anymore">
+                                <label class="form-check-label" for="dont_want">Don't want the product anymore</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="quality" name="reason" value="Quality of the product not as expected">
+                                <label class="form-check-label" for="quality">Quality of the product not as expected</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="received_wrong" name="reason" value="Received wrong item">
+                                <label class="form-check-label" for="received_wrong">Received wrong item</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="received_broken" name="reason" value="Received a broken/damaged item">
+                                <label class="form-check-label" for="received_broken">Received a broken/damaged item</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="other" name="reason" value="Other reason">
+                                <label class="form-check-label" for="other">Other reason</label>
+                              </div>
+                              <p class="text-danger" id="error" style="display: none">Select one</p>
+                              <button onclick="submit('<%=findOrder._id%>')" class="btn btn-dark mt-2">Submit</button>
+                            </div>
+                  
+                            <% } else if (findOrder.status == "Return process") { %>
+                            <button onclick="cancelReturn('<%=findOrder._id%>')" class="btn btn-dark mb-3">Cancel Return</button>
+                  
+                            <% } else if (findOrder.status == "Returned") { %>
+                            <p class="text-success font-weight-bold mb-3">The Order Returned</p>
+                  
+                            <% } else if (findOrder.status == "Payment Pending") { %>
+                            <button onclick="payment('<%=findOrder._id%>')" class="btn btn-dark mb-3">Pay now</button>
+                  
+                            <% } else { %>
+                            <button onclick="reason()" class="btn btn-dark mb-3">Cancel Order</button>
+                            <div id="reason2" style="display: none">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="dont_want" name="reason1" value="Don't want the product anymore">
+                                <label class="form-check-label" for="dont_want">Expected delivery date has changed and the product is arriving at a later date.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="quality" name="reason1" value="Quality of the product not as expected">
+                                <label class="form-check-label" for="quality">Product is not required anymore.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="received_wrong" name="reason1" value="Received wrong item">
+                                <label class="form-check-label" for="received_wrong">Product is being delivered to a wrong address(Customer's mistake)</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="received_broken" name="reason1" value="Received a broken/damaged item">
+                                <label class="form-check-label" for="received_broken">Cheaper alternative available for lesser price.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" id="other1" name="reason1" value="Other reason">
+                                <label class="form-check-label" for="other1">Other reason</label>
+                              </div>
+                              <p class="text-danger" id="error" style="display: none">Select one</p>
+                              <button onclick="cancel('<%= findOrder._id %>')" class="btn btn-dark mt-2">Submit</button>
+                            </div>
+                            <% } %>
+                            <% if(findOrder.status === 'Delivered'){%>
+                              <!-- <button class="btn btn-warning" onclick="returnOrder('<%= findOrder.oId %>')" data-abc="true">
+                                  <i class="fa fa-chevron-left"></i> Return Order
+                              </button> -->
+                              <%}else if(findOrder.status !== 'Canceled' && findOrder.status !== 'Returned'){%>
+                                  
+                                  <!-- <a href="/loadInvoice?id=<%=findOrder._id %>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Download Invoice</a> -->
+                                  <%}%>
+                          
+                          </div>
+                          
+                        </div>
+                        
+                      
+                      </div>
+                    </div>
+                  </section>
+                  
+                  <!-- Orders Tab Pane End -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <script>
+      function cancel(id) {
+        var selectedReason = document.querySelector(
+          'input[name="reason1"]:checked'
+        );
+
+        if (selectedReason) {
+          $.ajax({
+            url: "/cancelOrder",
+            method: "post",
+            body:JSON.stringify(id),
+            data: {
+              id,
+            },
+            success: (response) => {
+              console.log(response)
+              if (response.message == "success") {
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "You want to Cancel this Order?!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#000000",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, Cancel it!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire({
+                      title: "Canceled!",
+                      text: "Your Order has been Canceled.",
+                      icon: "success",
+                    }).then((result) => {
+                      location.href = "/profile";
+                    });
+                  }
+                });
+              }
+            },
+          });
+        } else {
+          document.getElementById("error").style.display = "block";
+
+          setTimeout(() => {
+            document.getElementById("error").style.display = "none";
+          }, 2000);
+        }
+
+        // alert(id)
+      }
+
+      function Return() {
+        document.getElementById("reason").style.display = "block";
+      }
+
+      function reason() {
+        document.getElementById("reason2").style.display = "block";
+      }
+
+      function submit(id) {
+
+var selectedReason = document.querySelector('input[name="reason"]:checked');
+
+if (selectedReason) {
+    // Retrieve the value of the selected radio button
+    var reasonValue = selectedReason.value;
+
+    $.ajax({
+        url: '/return',
+        method: 'post',
+        data: {
+            reasonValue,
+            id  
+        },
+        success: (response) => {
+            if (response.status == true) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    // timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Request send successfull"
+                }).then((result) => {
+
+                    window.location.href = "/profile"
+                })
+            }
+        }
+    })
+
+} else {
+    document.getElementById("error").style.display = "block"
+
+    setTimeout(() => {
+        document.getElementById("error").style.display = "none"
+    }, 2000)
+}
+
+
+}
+
+function cancelReturn(id){
+$.ajax({
+    url:"/cancelReturn",
+    method:"post",
+    data:{
+        id
+    },
+    success: (response) => {
+              if (response.status == true) {
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "You want to Cancel this Return?!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#000000",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, Cancel it!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire({
+                      title: "Canceled!",
+                      text: "Your return has been cancelled..",
+                      icon: "success",
+                    }).then((result) => {
+                      location.href = "/orders";
+                    });
+                  }
+                });
+              }
+            },
+})
+}
+
+const inputElement = document.getElementById('input');
+let timeoutId;
+
+function debounce(func, delay) {
+return function () {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+        func();
+    }, delay);
+};
+}
+
+function payment(id) {
+  $.ajax({
+            url:"/continue-Payment",
+            method:"post",
+            data:{
+                id
+            },
+            success:(response)=>{
+                if(response.status===true){
+                    console.log("working")
+                    
+                    let orderId=response.orderId
+
+                    var options = {
+                        "key": "rzp_test_ECB3Zjd1NyXFF9", // Enter the Key ID generated from the Dashboard
+                        "amount": response.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        "name": "Kevin Hills",
+                        "description": "Test Transaction",
+                        "image": "https://example.com/your_logo",
+                        "order_id": response.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                        "handler": function (response) {
+
+                            
+                           
+                            verifyPayment(response, orderId)
+                        },
+                        "prefill": {
+                            "name": "Gaurav Kumar",
+                            "email": "gaurav.kumar@example.com",
+                            "contact": "9000090000"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#000000"
+                        }
+                    };
+
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+
+
+
+                }
+            }
+        })
+}
+
+function verifyPayment(response,order){
+        $.ajax({
+            url:"/payment-sucess",
+            method:"post",
+            data:{
+                response,
+                order
+            },
+            success:(data)=>{
+                if(data.status==true){
+                  alert("Your payment is successful.")
+
+                    window.location.href="/orders"
+                }
+            }
+        })
+    }
+    
+    function invoice(id) {
+      window.location.href = '/invoice?id='+id
+    }
+
+    </script>
+    <%- include ('../layout/footer') %>
+</div>
+</div>

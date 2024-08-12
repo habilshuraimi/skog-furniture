@@ -13,45 +13,36 @@
     <!-- mini cart start -->
     <div class="sidebar-cart-active">
         <div class="sidebar-cart-all">
-            <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
-            <div class="cart-content">
-                <h3>Shopping Cart</h3>
-                <ul>
-                    <li class="single-product-cart">
-                        <div class="cart-img">
-                            <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#">Bejewelled velvet sandals</a></h4>
-                            <span> 1 × $49.00	</span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
-                    <li class="single-product-cart">
-                        <div class="cart-img">
-                            <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#">Contrast faux fur jacket</a></h4>
-                            <span> 1 × $49.00	</span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
-                </ul>
-                <div class="cart-total">
-                    <h4>Subtotal: <span>$170.00</span></h4>
-                </div>
-                <div class="cart-checkout-btn">
-                    <a class="btn-hover cart-btn-style" href="cart.html">view cart</a>
-                    <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">checkout</a>
-                </div>
+          <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+          <div class="cart-content">
+            <h3>Shopping Cart</h3>
+            <ul>
+              <% if (cartProduct && cartProduct.items && cartProduct.items.length > 0) { %> 
+                <% for (let i = 0; i < cartProduct.items.length; i++) { %>
+                  <li class="single-product-cart">
+                    <div class="cart-img">
+                      <a href="#"><img src="/productImages/<%= cartProduct.items[i].productId.images[1] %>" alt="" /></a>
+                    </div>
+                    <div class="cart-title">
+                      <h4><a href="#"><%= cartProduct.items[i].productId.name %></a></h4>
+                      <span><%= cartProduct.items[i].price %></span>
+                    </div>
+                    <div class="cart-delete">
+                      <a href="#">×</a>
+                    </div>
+                  </li>
+                <% } %>
+              <% } %>
+            </ul>
+            <div class="cart-total">
             </div>
+            <div class="cart-checkout-btn">
+              <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+              <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     <!-- aside start -->
     <div class="header-aside-active">
         <div class="header-aside-wrap">
@@ -245,38 +236,34 @@
         </div>
     </div>
 
-<div class="order-tracking-area">
-            <div class="container-fluid p-0">
-                <div class="order-tracking-img">
-                    <img alt="" src="assets/images/banner/order-tracking.jpg">
-                </div>
-                <div class="row g-0">
-                    <div class="col-lg-6 col-md-12 ms-auto">
-                        <div class="order-tracking-content text-center">
-                            <div class="order-tracking-title text-center">
-                                <h3>Order succesfull</h3>
-                                <ul>
-                                    <li><a href="/">Home</a> > Order succesfull</li>
-                                </ul>
+    <div class="order-tracking-area">
+        <div class="order-tracking-content-wrapper">
+            <div class="col-lg-6">
+                <div class="order-tracking-content text-center">
+                    <div class="order-tracking-title text-center">
+                        <h3>Order successful</h3>
+                        <ul>
+                            <li><a href="/">Home</a> > Order successful</li>
+                        </ul>
+                    </div>
+    
+                    <div class="order-tracking-form">
+                        <div class="card text-white">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-check-circle"></i> Order Placed Successfully</h5>
+                                <p class="card-text">Your order has been successfully placed.</p>
+                                <p class="card-text">Order ID: <strong><%= orderId %></strong></p>
                             </div>
-                           
-                            <div class="order-tracking-form">
-                                <div class="card text-white ">
-                                    <div class="card-body">
-                                      <h5 class="card-title"><i class="fas fa-check-circle"></i> Order Placed Successfully</h5>
-                                      <p class="card-text">Your order has been successfully placed.</p>
-                                      <p class="card-text">Order ID: <strong> <%= orderId %> </strong></p>
-                                    </div>
-                                  </div>
-                                  <div style="margin-top: 30px;text-align: right;">
-                                    <p>To track your order please enter your Order ID in the box below and press the "Track" button. 
-                                  </div>
-                           
-                               
-                            </div>
+                        </div>
+                        <div style="margin-top: 30px; text-align: right;">
+                            <p>To track your order please enter your Order ID in the box below and press the "Track" button.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
             </div>
         </div>
 

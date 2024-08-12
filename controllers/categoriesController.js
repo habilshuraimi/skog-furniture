@@ -30,7 +30,7 @@ export const saveCategories = async(req,res)=>{
     }    
 }
 
-    // editing a category
+    // load  editing a category
 export const editCategoryload = async(req,res)=>{
     const id = req.query.id
     const data = await Category.findById(id)
@@ -40,12 +40,22 @@ export const editCategoryload = async(req,res)=>{
 
 
     // saving changes in editing
-export const editCategory = async(req,res)=>{
+export const    editCategory = async(req,res)=>{
     try {
+        const name = req.body.name
+    const existingCatName = await Category.findOne({name:name.toLowerCase()})
+    if(existingCatName){
+        const category = await Category.find({})
+        const id = req.query.id
+        const data = await Category.findById(id)
+        res.render('editCategories',{category:category,message:"category name already exists",id:id,data:data})
+    }else{
         const id = req.query.id
         await Category.findByIdAndUpdate({_id:id},{$set:{name:req.body.name,description:req.body.description}})
 
         res.redirect('/admin/categories')
+    }
+        
         
     } catch (error) {
         console.log(error);

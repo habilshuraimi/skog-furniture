@@ -5,6 +5,8 @@ import bodyParser from "body-parser";
 import nocache from "nocache";
 import passport from "passport";
 import { initializingPassport } from "./middleware/google.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
@@ -35,15 +37,20 @@ app.use('/', userRoute);
 app.use('/admin', adminRoute);
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/Skog_Furniture", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log("Connected to MongoDB");
-}).catch(err => {
-    console.error("Error connecting to MongoDB", err);
-});
+mongoose.connect(process.env.MONGO, { serverSelectionTimeoutMS: 5000 })
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch(err => {
+        console.error("Error connecting to MongoDB", err.message);
+        console.error("Error details:", err);
+        process.exit(1); // Exit the process if connection fails
+    });
 
+// Listen for connection errors after initial connection
+mongoose.connection.on('error', err => {
+    console.error("MongoDB connection error:", err.message);
+});
 // Google OAuth routes
 app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }));

@@ -4615,4 +4615,39 @@ body.dark .dropdown-menu .dropdown-item.text-danger {
     display: none;
   }
 }
+
+.menu-item {
+  position: relative;
+}
+
+.has-submenu .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white; /* Adjust as needed */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.submenu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333; /* Adjust as needed */
+  text-decoration: none;
+}
+
+.submenu a:hover {
+  background-color: #f1f1f1; /* Adjust as needed */
+}
+
+.menu-item.active .submenu {
+  display: block;
+}
+
 /*# sourceMappingURL=main.css.map */
+
+.image-preview {
+  display: inline-block;
+  margin-right: 10px;
+}

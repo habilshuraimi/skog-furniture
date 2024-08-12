@@ -1,5 +1,9 @@
 <%- include('../layout/header') %>
-
+<style>
+  body {
+    background-color:  rgba(67, 159, 159, 0.315);; 
+  }
+</style>
 <!-- search start -->
 <div class="search-content-wrap main-search-active">
   <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
@@ -18,39 +22,28 @@
     <div class="cart-content">
       <h3>Shopping Cart</h3>
       <ul>
-        <li class="single-product-cart">
-          <div class="cart-img">
-            <a href="#"><img src="assets/images/cart/cart-1.jpg" alt="" /></a>
-          </div>
-          <div class="cart-title">
-            <h4><a href="#">Bejewelled velvet sandals</a></h4>
-            <span> 1 × $49.00 </span>
-          </div>
-          <div class="cart-delete">
-            <a href="#">×</a>
-          </div>
-        </li>
-        <li class="single-product-cart">
-          <div class="cart-img">
-            <a href="#"><img src="assets/images/cart/cart-2.jpg" alt="" /></a>
-          </div>
-          <div class="cart-title">
-            <h4><a href="#">Contrast faux fur jacket</a></h4>
-            <span> 1 × $49.00 </span>
-          </div>
-          <div class="cart-delete">
-            <a href="#">×</a>
-          </div>
-        </li>
+        <% if (cartProduct && cartProduct.items && cartProduct.items.length > 0) { %> 
+          <% for (let i = 0; i < cartProduct.items.length; i++) { %>
+            <li class="single-product-cart">
+              <div class="cart-img">
+                <a href="#"><img src="/productImages/<%= cartProduct.items[i].productId.images[1] %>" alt="" /></a>
+              </div>
+              <div class="cart-title">
+                <h4><a href="#"><%= cartProduct.items[i].productId.name %></a></h4>
+                <span><%= cartProduct.items[i].price %></span>
+              </div>
+              <div class="cart-delete">
+                <a href="#">×</a>
+              </div>
+            </li>
+          <% } %>
+        <% } %>
       </ul>
       <div class="cart-total">
-        <h4>Subtotal: <span>$170.00</span></h4>
       </div>
       <div class="cart-checkout-btn">
-        <a class="btn-hover cart-btn-style" href="cart.html">view cart</a>
-        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html"
-          >checkout</a
-        >
+        <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+        <a class="no-mrg btn-hover cart-btn-style" href="/checkout">checkout</a>
       </div>
     </div>
   </div>
@@ -69,164 +62,7 @@
             </button>
           </form>
         </div>
-        <div class="mobile-menu-wrap">
-          <!-- mobile menu start -->
-          <div class="mobile-navigation">
-            <!-- mobile menu navigation start -->
-            <nav>
-              <ul class="mobile-menu">
-                <li class="menu-item-has-children">
-                  <a href="index.html">Home</a>
-                  <ul class="dropdown">
-                    <li class="menu-item-has-children">
-                      <a href="#">Demo Group 01</a>
-                      <ul class="dropdown">
-                        <li><a href="index.html">Home 01</a></li>
-                        <li><a href="index-2.html">Home 02</a></li>
-                        <li><a href="index-3.html">Home 03</a></li>
-                        <li><a href="index-4.html">Home 04</a></li>
-                        <li><a href="index-5.html">Home 05</a></li>
-                        <li><a href="index-6.html">Home 06</a></li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Demo Group 02</a>
-                      <ul class="dropdown">
-                        <li><a href="index-7.html">Home 07</a></li>
-                        <li><a href="index-8.html">Home 08</a></li>
-                        <li><a href="index-9.html">Home 09</a></li>
-                        <li><a href="index-10.html">Home 10</a></li>
-                        <li><a href="index-11.html">Home 11</a></li>
-                        <li><a href="index-12.html">Home 12</a></li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Demo Group 03</a>
-                      <ul class="dropdown">
-                        <li><a href="index-13.html">Home 13</a></li>
-                        <li><a href="index-14.html">Home 14</a></li>
-                        <li><a href="index-15.html">Home 15</a></li>
-                        <li><a href="index-16.html">Home 16</a></li>
-                        <li><a href="index-17.html">Home 17</a></li>
-                        <li><a href="index-18.html">Home 18</a></li>
-                        <li><a href="index-19.html">Home 19</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#">Pages</a>
-                  <ul class="dropdown">
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="contact-us.html">Contact Page</a></li>
-                    <li><a href="404.html">404 Page</a></li>
-                    <li><a href="comming-soon.html">Comming Soon 01</a></li>
-                    <li><a href="comming-soon-2.html">Comming Soon 02</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="shop-fullwide.html">shop</a>
-                  <ul class="dropdown">
-                    <li class="menu-item-has-children">
-                      <a href="#">Shop Layout</a>
-                      <ul class="dropdown">
-                        <li><a href="shop-fullwide.html">Shop Fullwidth</a></li>
-                        <li><a href="shop-sidebar.html">Shop Sidebar</a></li>
-                        <li><a href="shop-metro.html">Shop Metro Layout</a></li>
-                        <li><a href="shop-3-col.html">Shop 03 Columns</a></li>
-                        <li><a href="shop-2-col.html">Shop 02 Columns</a></li>
-                        <li>
-                          <a href="shop-collection-1.html"
-                            >Shop Collection 01</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-collection-2.html"
-                            >Shop Collection 02</a
-                          >
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Product Layout</a>
-                      <ul class="dropdown">
-                        <li><a href="product-details.html">Single 01</a></li>
-                        <li><a href="product-details-2.html">Single 02</a></li>
-                        <li>
-                          <a href="product-details-group.html">Grouped</a>
-                        </li>
-                        <li>
-                          <a href="product-details-sticky.html">Sticky Info</a>
-                        </li>
-                        <li>
-                          <a href="product-details-configurable.html"
-                            >Configurable</a
-                          >
-                        </li>
-                        <li>
-                          <a href="product-details-thumbnail.html">Thumbnail</a>
-                        </li>
-                        <li><a href="product-details-video.html">Video</a></li>
-                        <li>
-                          <a href="product-details-affiliate.html">Affiliate</a>
-                        </li>
-                        <li>
-                          <a href="product-details-sidebar.html">Sidebar</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Shop Pages </a>
-                      <ul class="dropdown">
-                        <li><a href="my-account.html">My Account</a></li>
-                        <li><a href="checkout.html">Check Out</a></li>
-                        <li><a href="cart.html">Shopping Cart</a></li>
-                        <li><a href="wishlist.html">Wishlist</a></li>
-                        <li>
-                          <a href="order-tracking.html">Order Tracking</a>
-                        </li>
-                        <li><a href="compare.html">Compare</a></li>
-                        <li>
-                          <a href="login-register.html">login / register</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="shop-collection-1.html">Collection</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="shop-collection-1.html">Shop Collection 01</a>
-                    </li>
-                    <li>
-                      <a href="shop-collection-2.html">Shop Collection 02</a>
-                    </li>
-                    <li><a href="shop-metro.html">Shop Metro Layout</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="blog.html">Blog</a>
-                  <ul class="dropdown">
-                    <li><a href="blog.html">Blog Style 01</a></li>
-                    <li><a href="blog-2.html">Blog Style 02</a></li>
-                    <li><a href="blog-3.html">Blog Style 03</a></li>
-                    <li>
-                      <a href="blog-details.html">Single Post Style 01</a>
-                    </li>
-                    <li>
-                      <a href="blog-details-2.html">Single Post Style 02</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="shop-instagram.html">Instagram Shop </a></li>
-              </ul>
-            </nav>
-            <!-- mobile menu navigation end -->
-          </div>
-          <!-- mobile menu end -->
-        </div>
+
         <div class="mobile-curr-lang-wrap">
           <div class="single-mobile-curr-lang">
             <a class="mobile-language-active" href="#"
@@ -310,7 +146,7 @@
     </div>
   </div>
 </div>
-<div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+<div class="breadcrumb-area ">
   <div class="container-fluid">
     <div class="breadcrumb-content text-center">
       <div class="breadcrumb-title">
@@ -333,7 +169,7 @@
         <div class="myaccount-tab-menu nav" role="tablist">
           <a href="#dashboad" class="active" data-bs-toggle="tab"> Dashboard</a>
           <a href="#orders" data-bs-toggle="tab"> Orders</a>
-          <a href="#download" data-bs-toggle="tab"> Download</a>
+          <a href="#download" data-bs-toggle="tab"> wallet</a>
           <a href="#address-edit" data-bs-toggle="tab"> address</a>
           <a href="#account-info" data-bs-toggle="tab"> Account Details</a>
           <a href="/logout"> Logout</a>
@@ -363,38 +199,43 @@
           <!-- Single Tab Content Start -->
           <div class="tab-pane fade" id="orders" role="tabpanel">
             <div class="myaccount-content">
-              <div class="myaccount-table table-responsive text-center">
-                <table class="table table-bordered">
-                  <thead class="thead-light">
-                    <tr>
-                      <th>Order</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Total</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                    <% for(let i = 0 ; i < orders.length ; i++){ %>
-
-                   
-                    <tr>
-                      <td><%= i + 1 %></td>
-                      <td><%= orders[i].createdAt %></td>
-                      <td><%= orders[i].status %></td>
-                      <td><%= orders[i].billTotal %></td>
-                      <td>
-                        <a href="/cart" class="check-btn sqr-btn">View</a>
-                      </td>
-                    </tr>
-                    <%  } %>
-    
-                  </tbody>
-                </table>
+              <div class="myaccount-cards row">
+                <% orders.forEach((order, index) => { %>
+                  <% order.items.forEach(item => { %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="card" style="width: 18rem">
+                        <img
+                          src="/productImages/<%= item.image %>"
+                          class="card-img-top"
+                          alt="Product Image"
+                          style="height: 150px; object-fit: cover"
+                        />
+                        <div
+                          class="card-body d-flex flex-column justify-content-center text-center"
+                        >
+                          <h5 class="card-title" style="font-weight: bold">
+                            <%= item.productId ? item.productId.name : 'Product name not available' %>
+                          </h5>
+                          <p class="card-text">
+                            Date: <%= new Date(order.createdAt).toDateString() %>
+                          </p>
+                          <p class="card-text">Status: <%= order.status %></p>
+                          <p class="card-text">Total: <%= order.billTotal %></p>
+                          <a
+                            href="/orderView?id=<%= order._id %>"
+                            class="btn btn-danger btn-sm"
+                            >View Order</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  <% }); %>
+                <% }); %>
               </div>
+              
             </div>
           </div>
+
           <!-- Single Tab Content End -->
           <!-- Single Tab Content Start -->
           <div class="tab-pane fade" id="download" role="tabpanel">
@@ -403,106 +244,156 @@
                 <table class="table table-bordered">
                   <thead class="thead-light">
                     <tr>
-                      <th>Product</th>
                       <th>Date</th>
-                      <th>Expire</th>
-                      <th>Download</th>
+                      <th>orderId</th>
+                      <th>status</th>
+                      <th>amount</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Haven - Free Real Estate PSD Template</td>
-                      <td>Aug 22, 2023</td>
-                      <td>Yes</td>
-                      <td>
-                        <a href="#" class="check-btn sqr-btn"
-                          ><i class="fa fa-cloud-download"></i> Download File</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>HasTech - Profolio Business Template</td>
-                      <td>Sep 12, 2023</td>
-                      <td>Never</td>
-                      <td>
-                        <a href="#" class="check-btn sqr-btn"
-                          ><i class="fa fa-cloud-download"></i> Download File</a
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
+                    <% if (wallet !== null && wallet !== undefined && wallet.orders && wallet.orders.length > 0) { %>
+                        <% for (let i = 0; i < wallet.orders.length; i++) { %>
+                            <tr>
+                                <td><%= new Date(wallet.orders[i].updatedAt).toLocaleDateString() %></td>
+                                <td><a href="/orderView?id=<%= orders[i]._id %>"><%= wallet.orders[i]._id %></a> </td>
+                                
+                                <td>
+                                    <% if (wallet.orders[i].status === 'Canceled' || wallet.orders[i].status === 'Returned') { %>
+                                        <span class="success">Refund</span>
+                                    <% } else { %>
+                                        <span class="success">Debit</span>
+                                    <% } %>
+                                </td>
+                                <td>₹ <%= wallet.orders[i].billTotal %></td>
+                            </tr>
+                        <% } %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="4">No orderss found.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
                 </table>
               </div>
             </div>
           </div>
-<!-- Single Tab Content Start -->
-<div class="tab-pane fade" id="address-edit" role="tabpanel">
-  <div class="myaccount-content">
-    <p><strong><%= user.name %></strong></p>
-    <% if (addresses.length > 0) { %>
-      <% addresses.forEach(function(address, index) { %>
-        <div class="address-item">
-          <address>
-            <p>
-              <%= address.addressType %> <br>
-              <%= address.name %>, <%= address.houseNo %>, <%= address.street %>, <%= address.landmark %>,<br />
-              <%= address.city %>, <%= address.state %>, <%= address.pincode %>
-              <br />
-              Mobile: <%= address.mobile %>
-            </p>
-          </address>
-          <a onclick="toggleEditForm('<%= address._id %>')" class="check-btn sqr-btn">
-            <i class="fa fa-edit"></i> Edit Address
-          </a>
-          <br><br>
-          <div id="edit-form-<%= address._id %>" class="edit-form" style="display: none">
-            <form action="/editAddress?id=<%= address._id %>" method="post">
-              <div class="form-group">
-                <label for="houseNo">House No</label>
-                <input type="text" name="houseNo" value="<%= address.houseNo %>" class="form-control" />
+          <!-- Single Tab Content Start -->
+          <div class="tab-pane fade" id="address-edit" role="tabpanel">
+            <div class="myaccount-content">
+              <p><strong><%= user.name %></strong></p>
+              <% if (addresses.length > 0) { %> <%
+              addresses.forEach(function(address, index) { %>
+              <div class="address-item">
+                <address>
+                  <p>
+                    <%= address.addressType %> <br />
+                    <%= address.name %>, <%= address.houseNo %>,<br />
+                    <%= address.city %>, <%= address.state %>,
+                    <br />
+                    Mobile: <%= address.mobile %>
+                  </p>
+                </address>
+                <a
+                  onclick="toggleEditForm('<%= address._id %>')"
+                  class="check-btn sqr-btn"
+                >
+                  <i class="fa fa-edit"></i> Edit Address
+                </a>
+                <br /><br />
+                <div
+                  id="edit-form-<%= address._id %>"
+                  class="edit-form"
+                  style="display: none"
+                >
+                  <form
+                    action="/editAddress?id=<%= address._id %>"
+                    method="post"
+                  >
+                    <div class="form-group">
+                      <label for="houseNo">House No</label>
+                      <input
+                        type="text"
+                        name="houseNo"
+                        value="<%= address.houseNo %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="addressType">Address Type</label>
+                      <input
+                        type="text"
+                        name="addressType"
+                        value="<%= address.addressType %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="street">Street</label>
+                      <input
+                        type="text"
+                        name="street"
+                        value="<%= address.street %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="landmark">Landmark</label>
+                      <input
+                        type="text"
+                        name="landmark"
+                        value="<%= address.landmark %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="pincode">Pincode</label>
+                      <input
+                        type="text"
+                        name="pincode"
+                        value="<%= address.pincode %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input
+                        type="text"
+                        name="city"
+                        value="<%= address.city %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <input
+                        type="text"
+                        name="state"
+                        value="<%= address.state %>"
+                        class="form-control"
+                      />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button
+                      type="button"
+                      onclick="toggleEditForm('<%= address._id %>')"
+                      class="btn btn-secondary"
+                    >
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+                <hr style="color: #ffff" />
               </div>
-              <div class="form-group">
-                <label for="addressType">Address Type</label>
-                <input type="text" name="addressType" value="<%= address.addressType %>" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="street">Street</label>
-                <input type="text" name="street" value="<%= address.street %>" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="landmark">Landmark</label>
-                <input type="text" name="landmark" value="<%= address.landmark %>" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="pincode">Pincode</label>
-                <input type="text" name="pincode" value="<%= address.pincode %>" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" name="city" value="<%= address.city %>" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="state">State</label>
-                <input type="text" name="state" value="<%= address.state %>" class="form-control" />
-              </div>
-              <br>
-              <button type="submit" class="btn btn-primary">Save</button>
-              <button type="button" onclick="toggleEditForm('<%= address._id %>')" class="btn btn-secondary">Cancel</button>
-            </form>
+              <% }); %> <% } else { %>
+              <p>No addresses found.</p>
+              <% } %>
+            </div>
+            <br />
+            <a href="/addAddress" class="check-btn sqr-btn">
+              <i class="fa fa-edit"></i> Add New Address
+            </a>
           </div>
-          <hr style="color: #ffff" />
-        </div>
-      <% }); %>
-    <% } else { %>
-      <p>No addresses found.</p>
-    <% } %>
-  </div>
-  <br />
-  <a href="/addAddress" class="check-btn sqr-btn">
-    <i class="fa fa-edit"></i> Add New Address
-  </a>
-</div>
-
 
           <!-- Single Tab Content End -->
           <!-- Single Tab Content Start -->

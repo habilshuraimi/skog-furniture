@@ -4,7 +4,7 @@ const ObjectID = mongoose.Schema.Types.ObjectId;
 const addressSchema = new mongoose.Schema({
   user: {
     type: ObjectID,
-    ref: "users",
+    ref: "user",
     required: true,
   },
   addresses: [
@@ -39,6 +39,10 @@ const addressSchema = new mongoose.Schema({
         required: true,
       },
       city: {
+        type: String,
+        required: true,
+      },
+      district: {
         type: String,
         required: true,
       },
