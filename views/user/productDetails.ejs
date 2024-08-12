@@ -2,6 +2,38 @@
 <style>
   body {
     background-color:  rgba(67, 159, 159, 0.315);; 
+
+    /* review related style items */
+
+    
+/* Hide the radio buttons */
+input[type="radio"] {
+  display: none;
+}
+
+/* Style the star labels */
+.star-box-wrap .star {
+  font-size: 24px;
+  color: #ccc; /* Default star color */
+  cursor: pointer;
+}
+
+/* Change star color on hover */
+.star-box-wrap .star:hover,
+.star-box-wrap .star:hover ~ .star {
+  color: #ffcc00;
+}
+
+/* Change star color when selected */
+input[type="radio"]:checked ~ .star {
+  color: #ffcc00;
+}
+
+/* Ensure previous stars are colored when one is selected */
+input[type="radio"]:checked + label ~ label {
+  color: #ffcc00;
+}
+
   }
 </style>
 <!-- search start -->

@@ -19,6 +19,7 @@ export const loadCheckout = async (req, res) => {
             path: "items.productId",
             model: "Product",
         });
+        console.log(cartData,"cerrrrtttt")
 
         const addressData = await Address.findOne({ user: id });
         const addresses = addressData ? addressData.addresses : [];
