@@ -183,8 +183,7 @@ export const forgetLoad = async (req, res) => {
 
 
 
-
-const sendResetLink = async ( email,token) => {
+const sendResetLink = async (email, token) => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -197,17 +196,17 @@ const sendResetLink = async ( email,token) => {
     await transporter.sendMail({
       from: process.env.ADMIN_MAIL,
       to: email,
-      subject: "password reseting link",
-      text: `please click here to reset password  http://localhost:9889/forgetPassword?mail=${email} ` ,
-      
+      subject: "Password Resetting Link",
+      text: `Please click the following link to reset your password: http://localhost:9889/forgetPassword?token=${token}&mail=${email}`,
     });
 
-    console.log(`OTP sent successfully to ${email}`);
+    console.log(`Reset link sent successfully to ${email}`);
   } catch (error) {
-    console.error(`Failed to send OTP to ${email}:`, error);
-    throw new Error('Failed to send OTP. Please try again later.');
+    console.error(`Failed to send reset link to ${email}:`, error);
+    throw new Error('Failed to send reset link. Please try again later.');
   }
 };
+
 
 
 
@@ -218,36 +217,70 @@ export const forgetEmailCheck = async (req, res) => {
     const userData = await User.findOne({ email });
 
     if (userData) {
-      const randomstring = Randomstring.generate();
-      const updatedData = await User.updateOne({email:email},{$set : {token:randomstring}})
-      sendResetLink(userData.email,randomstring)
+      const randomstring = Randomstring.generate(); // Generate a random string as a token
+      await User.updateOne({ email }, { $set: { token: randomstring } }); // Save the token to the user's record
+      sendResetLink(userData.email, randomstring);
       res.render("forgetPassword", {
-        error: "Reset link has been sent to your mail",
-      })
+        error: "Reset link has been sent to your email.",
+      });
 
     } else {
       res.render("forgetPassword", {
-        error: "The email address you entered is not registered",
+        error: "The email address you entered is not registered.",
       });
     }
   } catch (error) {
     console.log(error.message);
+    res.render("forgetPassword", {
+      error: "An error occurred. Please try again later.",
+    });
   }
 };
 
 
-export const forgetPage = async(req,res)=>{
-  res.render("passwordReset")
-}
+export const forgetPage = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const mail = req.query.mail;
+    req.session.data = {token,mail}
+    
+    const user = await User.findOne({ email: mail, token: token });
+    if (user) {
+      res.render("passwordReset", { mail, token }); // Passing the email and token to the view
+    } else {
+      res.render("forgetPassword", { error: "Invalid or expired link." });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.render("forgetPassword", { error: "An error occurred. Please try again later." });
+  }
+};
 
 
 
 
-export const changePassword = async(req,res)=>{
-  const user = req.query.mail
-   console.log(req.body,"bodyyy")
-   console.log(req.query)
-  await User.findOneAndUpdate({email:user},{$set:{ 
 
-  }})
-}
+export const changePassword = async (req, res) => {
+  try {
+    const mail = req.session.data.mail;
+    const token = req.session.data.token;
+    const { password, confirmPassword } = req.body;
+     const userData = await User.findOne({email:mail})
+    if (password !== confirmPassword) {
+      return res.render("passwordReset", { error: "Passwords do not match.", email: mail, token });
+    }
+
+    
+    if(req.query.token === req.session.token){
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await User.findOneAndUpdate({email:mail},{$set:{password:hashedPassword}},{new: true})
+      
+      res.render("login", { success: "Password reset successfully. Please log in with your new password." });
+    }
+
+    
+  } catch (error) {
+    console.log(error.message);
+    res.render("passwordReset", { error: "An error occurred. Please try again later.", mail: req.query.mail, token: req.query.token });
+  }
+};
