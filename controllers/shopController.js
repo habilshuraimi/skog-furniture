@@ -88,6 +88,7 @@ export const loadShop = async (req, res) => {
 
 
 
+
   export const loadProductDetails = async (req, res) => {
     try {
       const id = req.query.id;
@@ -108,7 +109,6 @@ export const loadShop = async (req, res) => {
         product.rating = averageRating
         await product.save()
   
-console.log(review,"revewwwwwwwwwwwwwwwwwwwwwwwwwwwww");
         
       res.render("productDetails", { product, spanish, arabic, similar,cartData,review  });
     } catch (error) {

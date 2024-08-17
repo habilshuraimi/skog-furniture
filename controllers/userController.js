@@ -197,7 +197,7 @@ const sendResetLink = async (email, token) => {
       from: process.env.ADMIN_MAIL,
       to: email,
       subject: "Password Resetting Link",
-      text: `Please click the following link to reset your password: http://localhost:9889/forgetPassword?token=${token}&mail=${email}`,
+      text: `Please click the following link to reset your password: https://www.elegantmenfashion.com/forgetPassword?token=${token}&mail=${email}`,
     });
 
     console.log(`Reset link sent successfully to ${email}`);

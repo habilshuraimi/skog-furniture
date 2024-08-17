@@ -165,6 +165,75 @@ export const removing = async (req, res) => {
 
 
 
+export const deleteItem = async (req, res) => {
+  try {
+      const {productId}  = req.body
+      const userId = req.session.user
+
+      const userCart = await Cart.findOne({ owner: userId })
+
+      if (!userCart) {
+          return res.status(404).json({ message: "Cart not found" })
+      }
+
+      // Find if the product exists in the cart
+      
+      const existingCartItemIndex = userCart.items.findIndex(item => item.productId._id.toString() === productId)
+
+      if (existingCartItemIndex > -1) {
+          userCart.items.splice(existingCartItemIndex, 1)
+
+          //recalculate the BillTotal 
+
+          userCart.billTotal = userCart.items.reduce((total, item) => {
+              let itemPrice = Number(item.price)
+
+              let itemQuantity = Number(item.quantity)
+
+              let itemTotal = itemPrice * itemQuantity
+
+              return total + (isNaN(itemTotal) ? 0 : itemTotal)
+          }, 0);
+
+
+          await userCart.save()
+          return res.status(200).json({ success: true, message: "Item removed from cart" })
+      }
+      else {
+          return res.status(404).json({ message: "Item not found in the cart" })
+      }
+
+  } catch (error) {
+      console.log("Error while deleting the items from the cart", error.message)
+      res.status(500).json({ message: "Internal server Error" })
+  }
+}
+
+
+
+export const clearCart = async (req, res) => {
+  try {
+      const userId = req.session.user;
+
+      const userCart = await Cart.findOne({ owner: userId });
+
+      if (!userCart) {
+          return res.status(404).json({ message: "Cart not found" });
+      }
+
+      // Clear the items array and reset the billTotal
+      userCart.items = [];
+      userCart.billTotal = 0;
+
+      await userCart.save();
+
+     res.redirect("/cart")
+
+  } catch (error) {
+      console.log("Error while clearing the cart", error.message);
+      res.status(500).json({ message: "Internal server error" });
+  }
+}
 
 
 

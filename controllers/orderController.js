@@ -145,7 +145,7 @@ export const confirmPage = async (req, res) => {
     path: "items.productId",
     model: "Product",
   });
-  res.render("orderSuccess", { orderId, cartProduct });
+  res.render("ordersuccess", { orderId, cartProduct });
 };
 
 // function for rendering order status

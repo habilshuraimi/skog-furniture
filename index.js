@@ -64,9 +64,7 @@ app.get('/auth/google/callback',
 
 // Start the server
 const port = 9889;
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+app.listen(port)
 
 
 

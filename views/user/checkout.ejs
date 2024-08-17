@@ -149,103 +149,85 @@
           </div>
         </div>
         <div class="col-lg-5">
-            <div class="your-order-area" style="background-color: #ffff">
-              <h3>Your order</h3>
-              <div class="your-order-wrap gray-bg-4">
-                <div class="your-order-info-wrap">
-                  <div class="your-order-info">
-                    <ul>
-                      <li>Product <span>Total</span></li>
-                    </ul>
-                  </div>
-                  <div class="your-order-middle">
-                    <ul>
-                      <% let subtotal = 0; %>
-                      <% cartData.items.forEach(item => { %>
-                        <% let itemTotal = item.price  %>
-                        <% subtotal += itemTotal; %>
-                        <li>
-                          <%= item.productId.name %> (Qty: <%= item.quantity %>)
-                          <span>₹<%= itemTotal.toFixed(2) %></span>
-                        </li>
-                      <% }); %>
-                    </ul>
-                  </div>
-                  <div class="your-order-info order-subtotal">
-                    <ul>
-                      <li>Subtotal <span>₹<%= subtotal.toFixed(2) %></span></li>
-                    </ul>
-                  </div>
-                  <div class="your-order-info order-shipping">
-                    <ul>
-                      <li>Shipping <span>₹ 0.00</span></li>
-                    </ul>
-                  </div>
-                  <% const discount = (discountPercent / 100) * subtotal; %>
-                  <% if (discount > 0) { %>
-                    <div class="your-order-info order-discount">
-                      <ul>
-                        <li>Discount <span id="orderDiscount">-₹<%= discount.toFixed(2) %></span></li>
-                      </ul>
-                    </div>
-                  <% } else { %>
-                    <div class="your-order-info order-discount">
-                      <ul>
-                        <li>Discount <span id="orderDiscount">-₹0.00</span></li>
-                      </ul>
-                    </div>
-                  <% } %>
-                  <div class="your-order-info order-total">
-                    <ul>
+          <div class="your-order-area" style="background-color: #ffff">
+            <h3>Your order</h3>
+            <div class="your-order-wrap gray-bg-4">
+              <div class="your-order-info-wrap">
+                <div class="your-order-info">
+                  <ul>
+                    <li>Product <span>Total</span></li>
+                  </ul>
+                </div>
+                <div class="your-order-middle">
+                  <ul>
+                    <% let subtotal = 0; %>
+                    <% cartData.items.forEach(item => { %>
+                      <% let itemTotal = item.price %>
+                      <% subtotal += itemTotal; %>
                       <li>
-                        Total
-                        <span id="orderTotal">₹<%= (subtotal - discount).toFixed(2) %></span>
+                        <%= item.productId.name %> (Qty: <%= item.quantity %>)
+                        <span>₹<%= itemTotal.toFixed(2) %></span>
                       </li>
-                      <input
-                        type="hidden"
-                        value="<%= (subtotal - discount).toFixed(2) %>"
-                        name="amount"
-                        id="orderTotalInput"
-                      />
+                    <% }); %>
+                  </ul>
+                </div>
+                <div class="your-order-info order-subtotal">
+                  <ul>
+                    <li>Subtotal <span id="orderSubtotal">₹<%= subtotal.toFixed(2) %></span></li>
+                  </ul>
+                </div>
+                <div class="your-order-info order-shipping">
+                  <ul>
+                    <li>Shipping <span>₹ 0.00</span></li>
+                  </ul>
+                </div>
+                <% const discount = (discountPercent / 100) * subtotal; %>
+                <% if (discount > 0) { %>
+                  <div class="your-order-info order-discount">
+                    <ul>
+                      <li>Discount <span id="orderDiscount">-₹<%= discount.toFixed(2) %></span></li>
                     </ul>
                   </div>
-                </div>
-          
-                <div style="margin-top: 20px">
-                  <label
-                    for="payOnDelivery"
-                    style="font-family: Arial, sans-serif; font-size: 16px"
-                  >
+                <% } else { %>
+                  <div class="your-order-info order-discount">
+                    <ul>
+                      <li>Discount <span id="orderDiscount">-₹0.00</span></li>
+                    </ul>
+                  </div>
+                <% } %>
+                <div class="your-order-info order-total">
+                  <ul>
+                    <li>
+                      Total
+                      <span id="orderTotal">₹<%= (subtotal - discount).toFixed(2) %></span>
+                    </li>
                     <input
-                      type="radio"
-                      id="payOnDelivery"
-                      name="paymentOption"
-                      value="COD"
-                      style="margin-right: 10px"
-                      disabled
+                      type="hidden"
+                      value="<%= (subtotal - discount).toFixed(2) %>"
+                      name="amount"
+                      id="orderTotalInput"
                     />
-                    Pay on Delivery
-                  </label>
-                  <label
-                    for="razorpayPayment"
-                    style="font-family: Arial, sans-serif; font-size: 16px"
-                  >
-                    <input
-                      type="radio"
-                      id="razorpayPayment"
-                      name="paymentOption"
-                      value="Razorpay"
-                      style="margin-right: 10px"
-                    />
-                    Pay Online
-                  </label>
+                  </ul>
                 </div>
-                <br />
-                <button id="proceedButton" class="btn btn-primary">
-                  Proceed
-                </button>
               </div>
+          
+              <div style="margin-top: 20px">
+                <label for="payOnDelivery" style="font-family: Arial, sans-serif; font-size: 16px">
+                  <input type="radio" id="payOnDelivery" name="paymentOption" value="COD" style="margin-right: 10px" />
+                  Pay on Delivery
+                </label>
+                <label for="razorpayPayment" style="font-family: Arial, sans-serif; font-size: 16px">
+                  <input type="radio" id="razorpayPayment" name="paymentOption" value="Razorpay" style="margin-right: 10px" />
+                  Pay Online
+                </label>
+              </div>
+              <br />
+              <button id="proceedButton" class="btn btn-primary">Proceed</button>
             </div>
+          </div>
+          
+          
+          
           </div>
           
           
@@ -520,6 +502,19 @@
       });
     }
   }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const subtotal = parseFloat("<%= subtotal.toFixed(2) %>");
+    const payOnDelivery = document.getElementById("payOnDelivery");
+
+    if (subtotal > 1000) {
+      payOnDelivery.disabled = true;
+    } else {
+      payOnDelivery.disabled = false;
+    }
+  });
 </script>
 
 <%- include('../layout/footer') %>

@@ -23,6 +23,8 @@ import {
 import {
   addToCart,
   adding,
+  clearCart,
+  deleteItem,
   loadCart,
   removing,
 } from "../controllers/cartController.js";
@@ -76,11 +78,14 @@ userRoute.get("/cart", isLogged,isBlocked, loadCart);
 userRoute.get("/addCart", isLogged,isBlocked, addToCart);
 userRoute.post("/increment", adding);
 userRoute.post("/decrement", removing);
-// userRoute.get('/cartremove',removeItemFromCart )
-userRoute.post('/applyCoupon',isLogged,isBlocked,applyCoupon)
+userRoute.get("/clearCart",clearCart)
+userRoute.post("/cartremove",deleteItem)
+
+
 
 
 userRoute.get("/checkout",isBlocked, isLogged, loadCheckout);
+userRoute.post('/applyCoupon',isLogged,isBlocked,applyCoupon)
 userRoute.post("/order",isBlocked, isLogged, order);
 userRoute.post("/return",isLogged,isBlocked,returnRequest)
 
