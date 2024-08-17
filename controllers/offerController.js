@@ -1,5 +1,5 @@
 import ProductOffer from "../models/OffProductModel.js";
-import CategoryOffer from "../models/OffCategoryModel.js";
+import CategoryOffer from "../models/offCategoryModel.js";
 
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
